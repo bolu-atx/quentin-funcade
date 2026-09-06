@@ -11,6 +11,9 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: prod
+      url: https://quentin-funcade.pages.dev
     steps:
       - uses: actions/checkout@v4
 

@@ -43,12 +43,13 @@ Cloudflare to always revalidate HTML so game updates go live immediately.
 ### Auto-deploy on merge to main
 
 `.github/workflows/deploy.yml` deploys the site with `wrangler pages deploy`
-on every push to `main`. It needs two repository secrets:
+on every push to `main`. The job runs in the `prod` GitHub environment, which
+holds two secrets:
 
 - `CLOUDFLARE_API_TOKEN` — a token with the "Cloudflare Pages: Edit" permission.
 - `CLOUDFLARE_ACCOUNT_ID` — the account ID from the Cloudflare dashboard.
 
-Set them under Settings -> Secrets and variables -> Actions.
+Set them under Settings -> Environments -> prod.
 
 ## Add a game
 
