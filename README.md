@@ -10,7 +10,7 @@ self-contained HTML file, and `index.html` is the hub that links them together.
 
 | Game | File | Skills | Ages |
 | --- | --- | --- | --- |
-| Banana Buddies | `banana-spelling.html` | Typing, letters, spelling | 2–6 |
+| Banana Buddies | `games/banana-spelling.html` | Typing, letters, spelling | 2–6 |
 
 ## Play timer
 
@@ -46,8 +46,8 @@ Leave the build command empty and set the output directory to `/`.
 
 ## Add a game
 
-1. Drop a new self-contained `*.html` file at the repo root.
-2. Add a `<a class="card">` block for it in `index.html`.
+1. Drop a new self-contained `*.html` file in `games/`.
+2. Add a `<button class="card" data-game="games/your-game.html">` block for it in `index.html`.
 3. Add a row to the table above.
 
 Keep each game in one file: inline CSS and JS, no external requests. This keeps
