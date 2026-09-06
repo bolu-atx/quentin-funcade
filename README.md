@@ -12,6 +12,14 @@ self-contained HTML file, and `index.html` is the hub that links them together.
 | --- | --- | --- | --- |
 | Banana Buddies | `banana-spelling.html` | Typing, letters, spelling | 2–6 |
 
+## Play timer
+
+The hub runs each game in a full-screen iframe. A grown-up picks a time limit
+(5–30 minutes, or none) before starting. When the time is up, a plain
+"taking a break" screen covers the game. The deadline is stored in
+`localStorage`, so reloading the page does not reset it. To exit early or leave
+the break screen, hold the corner button for two seconds.
+
 ## Develop
 
 Open `index.html` in a browser, or serve the folder:
