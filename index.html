@@ -12,26 +12,62 @@
     body{margin:0;background:var(--paper);color:var(--ink);font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;min-height:100vh}
     body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(#dbbf762c 1.5px,transparent 1.5px);background-size:23px 23px;z-index:-1}
     a{color:inherit;text-decoration:none}
+    button{font:inherit;color:inherit;cursor:pointer}
+    [hidden]{display:none!important}
     header{max-width:1100px;margin:auto;padding:26px 32px}
     .brand{font-size:23px;font-weight:900;letter-spacing:-1px;display:flex;align-items:center;gap:10px}
     .brand-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:var(--yellow);font-size:27px;transform:rotate(-8deg)}
     main{max-width:1000px;margin:auto;padding:8px 28px 48px}
-    .intro{text-align:center;margin-bottom:34px}
+    .intro{text-align:center;margin-bottom:26px}
     .eyebrow{color:#787252;font-size:12px;letter-spacing:2.6px;text-transform:uppercase;font-weight:800}
     .intro h1{font-family:"Arial Rounded MT Bold","Trebuchet MS",sans-serif;font-size:clamp(34px,5vw,56px);letter-spacing:-2px;margin:11px 0 10px;line-height:1.1}
     .intro h1 span{position:relative;white-space:nowrap}
     .intro h1 span:after{content:"";height:9px;background:var(--yellow);position:absolute;bottom:0;left:0;right:0;border-radius:50%;z-index:-1;transform:rotate(-2deg)}
     .intro p{margin:0;color:#687481;font-size:17px}
+
+    .timer-box{max-width:560px;margin:0 auto 34px;background:#fffdf6;border:2px solid #e5ddc9;border-radius:20px;padding:18px 22px}
+    .timer-box .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .timer-box h2{margin:0;font-size:14px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#527786;flex:1}
+    .timer-box .grown{font-size:12px}
+    .mins{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+    .mins button{border:2px solid #ddd8c9;border-radius:14px;background:#fff;padding:8px 13px;font-size:14px;font-weight:800}
+    .mins button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .timer-box p{margin:12px 0 0;color:#7c8079;font-size:13px;line-height:1.5}
+
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-    .card{display:flex;flex-direction:column;gap:10px;background:#fffdf6;border:2px solid #e5ddc9;border-radius:24px;padding:24px;transition:transform .15s,box-shadow .15s,border-color .15s}
+    .card{display:flex;flex-direction:column;gap:10px;background:#fffdf6;border:2px solid #e5ddc9;border-radius:24px;padding:24px;transition:transform .15s,box-shadow .15s,border-color .15s;text-align:left;width:100%}
     .card:hover,.card:focus-visible{transform:translateY(-4px);box-shadow:0 12px 30px #243d5518;border-color:#c8d9df;outline:none}
     .card-icon{font-size:44px;line-height:1}
-    .card h2{margin:0;font-size:22px;letter-spacing:-.5px}
+    .card h3{margin:0;font-size:22px;letter-spacing:-.5px}
     .card p{margin:0;color:#687481;font-size:15px;line-height:1.5;flex:1}
     .tags{display:flex;flex-wrap:wrap;gap:6px}
     .tag{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#527786;background:#e8f2f6;border:1px solid #d4e5eb;border-radius:20px;padding:4px 10px}
     .play{margin-top:4px;font-weight:900;color:#336b91}
     footer{text-align:center;font-size:12px;color:#848679;padding:10px 15px 30px}
+
+    /* ---- player shell ---- */
+    .player{position:fixed;inset:0;z-index:50;background:#000}
+    .player iframe{width:100%;height:100%;border:0;display:block}
+    .pill{position:fixed;top:12px;right:12px;z-index:52;background:#243d55cc;color:#fff;font-weight:800;font-size:13px;font-variant-numeric:tabular-nums;padding:6px 12px;border-radius:20px;letter-spacing:.5px;pointer-events:none;opacity:.55}
+    .pill.low{background:#b23b3bdd;opacity:1}
+    .exit{position:fixed;top:10px;left:10px;z-index:52;background:#243d5566;color:#fff;border:0;border-radius:16px;padding:7px 12px;font-size:11px;font-weight:800;letter-spacing:.4px;overflow:hidden;opacity:.4;transition:opacity .2s}
+    .exit:hover,.exit:active{opacity:1}
+    .hold-fill{position:absolute;inset:0;background:#2873b9;transform:scaleX(0);transform-origin:left;opacity:.9}
+    .hold-label{position:relative}
+
+    /* ---- time-up "system" screen ---- */
+    .timeup{position:fixed;inset:0;z-index:60;background:#1f2b3a;color:#c7d4e0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;font-family:"SF Mono",SFMono-Regular,Menlo,Consolas,monospace}
+    .timeup .face{font-size:72px;line-height:1;color:#e8eef4}
+    .timeup h2{font-family:inherit;font-size:clamp(20px,3.4vw,28px);font-weight:700;margin:22px 0 6px;color:#eef3f8}
+    .timeup .sub{font-size:15px;color:#93a4b6;margin:0}
+    .timeup .term{margin:26px 0 0;font-size:13px;line-height:1.7;color:#6f8397;text-align:left;max-width:420px;width:100%;border-top:1px solid #33445a;padding-top:16px}
+    .timeup .term b{color:#9fb2c4;font-weight:600}
+    .timeup .cursor{display:inline-block;width:8px;height:15px;background:#6f8397;vertical-align:middle;animation:blink 1.1s step-end infinite}
+    @keyframes blink{50%{opacity:0}}
+    .timeup .exit{position:static;margin-top:30px;background:#2c3b4e;opacity:1;padding:12px 20px;font-size:12px;border-radius:12px}
+    .timeup .exit:hover{background:#33455b}
+    @media(prefers-reduced-motion:reduce){.cursor{animation:none}.hold-fill{transition:none}}
+
     @media(max-width:560px){header{padding:18px 20px}main{padding:8px 16px 32px}.card{padding:20px}}
   </style>
 </head>
@@ -43,16 +79,171 @@
       <h1>Pick a game and <span>start playing!</span></h1>
       <p>Typing, letters, numbers, and more — made for toddlers and young kids.</p>
     </section>
-    <section class="grid" aria-label="Games">
-      <a class="card" href="banana-spelling.html">
-        <div class="card-icon" aria-hidden="true">🍌</div>
-        <h2>Banana Buddies</h2>
+
+    <section class="timer-box" aria-label="Play timer">
+      <div class="row">
+        <h2>Play timer</h2>
+        <span class="tag grown">Grown-ups</span>
+      </div>
+      <div class="mins" id="mins" role="group" aria-label="Minutes of play">
+        <button data-min="5">5 min</button>
+        <button data-min="10">10 min</button>
+        <button data-min="15">15 min</button>
+        <button data-min="20">20 min</button>
+        <button data-min="30">30 min</button>
+        <button data-min="0">No timer</button>
+      </div>
+      <p>Choose a limit, then start a game. When time is up, the game shows a
+        "taking a break" screen. Hold the button in the top-left corner for two
+        seconds to exit at any time.</p>
+    </section>
+
+    <section class="grid" aria-label="Games" id="grid">
+      <button class="card" data-game="banana-spelling.html">
+        <span class="card-icon" aria-hidden="true">🍌</span>
+        <h3>Banana Buddies</h3>
         <p>Find a letter, press its key, collect a banana. Easy letters, ABC practice, and emoji spelling with the Minions.</p>
-        <div class="tags"><span class="tag">Typing</span><span class="tag">Letters</span><span class="tag">Ages 2–6</span></div>
+        <span class="tags"><span class="tag">Typing</span><span class="tag">Letters</span><span class="tag">Ages 2–6</span></span>
         <span class="play">Play →</span>
-      </a>
+      </button>
     </section>
   </main>
   <footer>Made for little learners · No rush, just fun. <span aria-hidden="true">♡</span></footer>
+
+  <div class="player" id="player" hidden>
+    <iframe id="frame" title="Game" allow="autoplay"></iframe>
+    <button class="exit" id="exit" type="button" aria-label="Grown-ups: hold for two seconds to exit the game">
+      <span class="hold-fill" id="exitFill" aria-hidden="true"></span>
+      <span class="hold-label">✕ hold to exit</span>
+    </button>
+    <div class="pill" id="pill" role="timer" aria-live="off" hidden>⏱ 00:00</div>
+  </div>
+
+  <div class="timeup" id="timeup" role="alertdialog" aria-modal="true" aria-labelledby="timeup-title" hidden>
+    <div class="face" aria-hidden="true">:(</div>
+    <h2 id="timeup-title">Playtime is over for now</h2>
+    <p class="sub">This game is taking a nap.</p>
+    <div class="term" aria-hidden="true">
+      <div>&gt; <b>FUNCADE_SESSION_ENDED</b></div>
+      <div>&gt; code: NAP-TIME &nbsp; reason: play timer reached</div>
+      <div>&gt; ask a grown-up if you want to play more <span class="cursor"></span></div>
+    </div>
+    <button class="exit" id="timeupExit" type="button" aria-label="Grown-ups: hold for two seconds to return to the game menu">
+      <span class="hold-fill" id="timeupFill" aria-hidden="true"></span>
+      <span class="hold-label">🔓 grown-ups: hold to exit</span>
+    </button>
+  </div>
+
+  <script>
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const LS = { deadline:'funcade.deadline', game:'funcade.game', minutes:'funcade.minutes' };
+    const store = {
+      get: k => { try { return localStorage.getItem(k); } catch { return null; } },
+      set: (k,v) => { try { localStorage.setItem(k,v); } catch {} },
+      del: k => { try { localStorage.removeItem(k); } catch {} },
+    };
+    const HOLD_MS = 2000;
+    let minutes = 10, tick;
+
+    function fmt(ms) {
+      const total = Math.max(0, Math.round(ms / 1000));
+      return String(Math.floor(total / 60)).padStart(2,'0') + ':' + String(total % 60).padStart(2,'0');
+    }
+
+    function setMinutes(value) {
+      minutes = value;
+      store.set(LS.minutes, String(value));
+      for (const button of $('mins').children) button.setAttribute('aria-pressed', String(Number(button.dataset.min) === value));
+    }
+
+    function startCountdown(deadline) {
+      $('pill').hidden = false;
+      clearInterval(tick);
+      const update = () => {
+        const left = deadline - Date.now();
+        $('pill').textContent = '⏱ ' + fmt(left);
+        $('pill').classList.toggle('low', left <= 60000);
+        if (left <= 0) { clearInterval(tick); showTimeUp(); }
+      };
+      update();
+      tick = setInterval(update, 1000);
+    }
+
+    function launch(src) {
+      $('frame').src = src;
+      store.set(LS.game, src);
+      $('player').hidden = false;
+      document.body.style.overflow = 'hidden';
+      $('frame').addEventListener('load', () => $('frame').focus(), { once: true });
+      if (minutes > 0) {
+        const deadline = Date.now() + minutes * 60000;
+        store.set(LS.deadline, String(deadline));
+        startCountdown(deadline);
+      } else {
+        store.del(LS.deadline);
+        $('pill').hidden = true;
+      }
+    }
+
+    function showTimeUp() {
+      $('frame').src = 'about:blank';
+      $('pill').hidden = true;
+      $('timeup').hidden = false;
+      $('timeupExit').focus();
+    }
+
+    function exit() {
+      clearInterval(tick);
+      store.del(LS.deadline);
+      store.del(LS.game);
+      $('frame').src = 'about:blank';
+      $('player').hidden = true;
+      $('timeup').hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    function holdToExit(button, fill) {
+      let timer, start;
+      const stop = () => { clearInterval(timer); timer = null; fill.style.transform = 'scaleX(0)'; };
+      const step = () => {
+        const progress = Math.min(1, (Date.now() - start) / HOLD_MS);
+        fill.style.transform = 'scaleX(' + progress + ')';
+        if (progress >= 1) { stop(); exit(); }
+      };
+      button.addEventListener('pointerdown', event => {
+        event.preventDefault();
+        if (timer) return;
+        start = Date.now();
+        step();
+        timer = setInterval(step, 60);
+      });
+      for (const type of ['pointerup','pointerleave','pointercancel']) button.addEventListener(type, stop);
+    }
+
+    $('mins').addEventListener('click', event => {
+      const button = event.target.closest('button');
+      if (button) setMinutes(Number(button.dataset.min));
+    });
+    $('grid').addEventListener('click', event => {
+      const card = event.target.closest('.card');
+      if (card) launch(card.dataset.game);
+    });
+    holdToExit($('exit'), $('exitFill'));
+    holdToExit($('timeupExit'), $('timeupFill'));
+
+    // Restore state so a page reload cannot reset the timer.
+    const savedMinutes = store.get(LS.minutes);
+    setMinutes(savedMinutes === null ? 10 : Number(savedMinutes));
+    const savedGame = store.get(LS.game);
+    const savedDeadline = Number(store.get(LS.deadline) || 0);
+    if (savedGame) {
+      $('player').hidden = false;
+      document.body.style.overflow = 'hidden';
+      if (savedDeadline && Date.now() >= savedDeadline) showTimeUp();
+      else if (savedDeadline) { $('frame').src = savedGame; startCountdown(savedDeadline); }
+      else { $('frame').src = savedGame; $('pill').hidden = true; }
+    }
+  </script>
 </body>
 </html>
