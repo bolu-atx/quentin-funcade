@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>Note Blocks · Music for little ears</title>
+<style>
+  :root{
+    --paper:#fff8e7;--ink:#243d55;--muted:#6b7784;--yellow:#ffda43;--blue:#2873b9;--green:#39866a;
+    --c1:#e63946;--c2:#f77f1e;--c3:#ffd23f;--c4:#3fb54a;--c5:#2aa7e0;--c6:#5b4fcf;--c7:#c840b3;--c8:#ff6fa4;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+  html,body{height:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Arial Rounded MT Bold","Avenir Next",Avenir,"Trebuchet MS",sans-serif;display:flex;flex-direction:column;overflow:hidden}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(#dbbf762c 1.5px,transparent 1.5px);background-size:23px 23px;z-index:-1}
+  button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+  [hidden]{display:none!important}
+
+  header{display:flex;align-items:center;gap:8px;padding:10px 14px;flex-wrap:wrap}
+  .brand{font-size:22px;font-weight:900;letter-spacing:-.5px;margin-right:auto;display:flex;align-items:center;gap:8px}
+  .brand .logo{display:inline-grid;grid-template-columns:repeat(2,12px);gap:2px;transform:rotate(-8deg)}
+  .brand .logo i{width:12px;height:12px;border-radius:3px;background:var(--c1)}
+  .brand .logo i:nth-child(2){background:var(--c3)}.brand .logo i:nth-child(3){background:var(--c5)}.brand .logo i:nth-child(4){background:var(--c4)}
+  .stars{font-size:20px;font-weight:900;background:#fff;border-radius:999px;padding:6px 14px;box-shadow:0 2px 0 #e7dcc0}
+  .icon-btn{font-size:22px;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:0 2px 0 #e7dcc0}
+  .icon-btn.off{opacity:.45}
+
+  nav{display:flex;gap:8px;padding:4px 14px 8px;overflow-x:auto;flex-shrink:0}
+  nav button{flex:1 0 auto;min-width:96px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 10px;border-radius:16px;background:#fff;box-shadow:0 3px 0 #e7dcc0;font-weight:800;font-size:13px;transition:transform .1s}
+  nav button .em{font-size:26px}
+  nav button.active{background:var(--yellow);box-shadow:0 3px 0 #d4b02a;transform:translateY(1px)}
+  nav button .done{font-size:11px;color:#a08a2e;letter-spacing:1px}
+
+  main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:6px 14px 14px;gap:10px;min-height:0;overflow:auto}
+  .prompt{font-size:clamp(20px,3.4vw,30px);font-weight:900;text-align:center;min-height:1.3em;letter-spacing:-.5px}
+  .prompt small{display:block;font-size:.6em;color:var(--muted);font-weight:700;margin-top:3px}
+
+  /* ---------- Numberblock-style characters ---------- */
+  .stage{display:flex;align-items:flex-end;justify-content:center;gap:clamp(6px,1.6vw,18px);width:100%;flex-wrap:wrap;padding:8px 0}
+  .nb{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transform-origin:50% 100%;transition:transform .12s}
+  .nb:active{transform:scale(.96)}
+  .nb .stack{display:flex;flex-direction:column-reverse;align-items:center;position:relative;transform-origin:50% 100%}
+  .nb .blk{width:var(--u,38px);height:var(--u,38px);border-radius:7px;margin-top:2px;background:var(--col);box-shadow:inset -4px -5px 0 rgba(0,0,0,.14),inset 3px 3px 0 rgba(255,255,255,.28);position:relative}
+  .nb .blk.face:before{content:"";position:absolute;top:22%;left:20%;width:60%;height:26%;background:
+      radial-gradient(circle at 25% 50%,#fff 0 30%,transparent 31%),radial-gradient(circle at 75% 50%,#fff 0 30%,transparent 31%);}
+  .nb .blk.face:after{content:"";position:absolute;top:26%;left:20%;width:60%;height:18%;background:
+      radial-gradient(circle at 27% 55%,#1b1b2b 0 18%,transparent 19%),radial-gradient(circle at 73% 55%,#1b1b2b 0 18%,transparent 19%);transition:transform .15s}
+  .nb .mouth{position:absolute;bottom:18%;left:50%;width:34%;height:16%;transform:translateX(-50%);border-bottom:3px solid #1b1b2b;border-radius:0 0 40px 40px}
+  .nb.sing .stack{animation:bounce .45s ease}
+  .nb.sing .mouth{height:26%;border:3px solid #1b1b2b;border-top:0;background:#1b1b2b;border-radius:0 0 40px 40px}
+  .nb.sing .blk.face:after{transform:scaleY(.4)}
+  .nb .lbl{font-weight:900;font-size:clamp(13px,2vw,17px);color:var(--col);text-shadow:0 1px 0 #fff}
+  .nb .num{font-size:11px;color:var(--muted);font-weight:800}
+  .nb.mystery .blk{background:#cfd4da;box-shadow:inset -4px -5px 0 rgba(0,0,0,.1)}
+  .nb.mystery .blk.face:before,.nb.mystery .blk.face:after,.nb.mystery .mouth{display:none}
+  .nb.mystery .q{position:absolute;inset:0;display:grid;place-items:center;font-size:34px;font-weight:900;color:#fff}
+  .nb.wrong .stack{animation:wobble .4s ease}
+  .nb.glow .blk{filter:brightness(1.18) saturate(1.25)}
+  .nb.dim{opacity:.35;pointer-events:none}
+  .nb.small{--u:26px}
+  @keyframes bounce{0%{transform:scaleY(1)}30%{transform:scaleY(.82) scaleX(1.08)}60%{transform:scaleY(1.12) scaleX(.95)}100%{transform:scaleY(1)}}
+  @keyframes wobble{0%,100%{transform:rotate(0)}25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
+
+  .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center}
+  .big{font-size:clamp(18px,2.6vw,24px);font-weight:900;padding:14px 26px;border-radius:20px;background:var(--yellow);box-shadow:0 5px 0 #d4b02a;transition:transform .08s}
+  .big:active{transform:translateY(3px);box-shadow:0 2px 0 #d4b02a}
+  .big.blue{background:var(--blue);color:#fff;box-shadow:0 5px 0 #1b4f80}
+  .big.blue:active{box-shadow:0 2px 0 #1b4f80}
+  .big.green{background:var(--green);color:#fff;box-shadow:0 5px 0 #245a46}
+  .big.green:active{box-shadow:0 2px 0 #245a46}
+  .big.white{background:#fff;box-shadow:0 5px 0 #e7dcc0}
+  .big.white:active{box-shadow:0 2px 0 #e7dcc0}
+  .big:disabled{opacity:.45;pointer-events:none}
+  .big .em{font-size:1.4em;vertical-align:middle;margin-right:6px}
+
+  /* progress dots */
+  .dots{display:flex;gap:8px}
+  .dots i{width:14px;height:14px;border-radius:50%;background:#e2d9c1}
+  .dots i.ok{background:var(--green)}
+  .dots i.bad{background:#e63946}
+
+  /* rhythm */
+  .bar{display:flex;gap:4px;padding:6px;background:#fff;border-radius:14px;box-shadow:0 3px 0 #e7dcc0;height:78px;align-items:center;min-width:calc(4*var(--b) + 12px + 12px);--b:64px}
+  .bar .slot{width:var(--b);height:54px;border-radius:10px;border:3px dashed #e2d9c1;flex-shrink:0}
+  .bar .note{height:54px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:16px;flex-shrink:0;box-shadow:inset -4px -5px 0 rgba(0,0,0,.14),inset 3px 3px 0 rgba(255,255,255,.28);position:relative;transition:transform .1s}
+  .bar .note.n1{width:var(--b);background:var(--c1)}
+  .bar .note.n2{width:calc(var(--b)*2 + 4px);background:var(--c2)}
+  .bar .note.n4{width:calc(var(--b)*4 + 12px);background:var(--c4)}
+  .bar .note.hit{transform:scale(1.08);filter:brightness(1.2)}
+  .beats{display:flex;gap:4px;--b:64px}
+  .beats i{width:var(--b);height:14px;border-radius:50%;background:#e2d9c1;transition:transform .08s,background .08s}
+  .beats i.on{background:var(--blue);transform:scale(1.3)}
+
+  /* celebration */
+  .toast{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.6);background:#fff;padding:22px 34px;border-radius:26px;font-size:clamp(28px,5vw,48px);font-weight:900;box-shadow:0 8px 0 #e7dcc0,0 20px 40px rgba(0,0,0,.15);opacity:0;pointer-events:none;transition:all .25s;text-align:center;z-index:5}
+  .toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .toast small{display:block;font-size:.45em;color:var(--muted);margin-top:6px}
+  .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:4}
+  .confetti i{position:absolute;top:-14px;width:12px;height:12px;border-radius:3px;animation:fall 1.6s linear forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}
+
+  .staircase{display:flex;align-items:flex-end;gap:6px;min-height:calc(8*40px + 30px);padding:8px 14px;background:#fff8;border-radius:18px;border:3px dashed #e2d9c1;flex-wrap:nowrap}
+  .staircase:empty:before{content:"Tap the smallest block first →";color:var(--muted);font-weight:700;align-self:center;padding:8px}
+  .hint{color:var(--muted);font-weight:700;font-size:14px;text-align:center}
+  @media (max-width:520px){.nb{--u:30px}.bar{--b:52px}.beats{--b:52px}.staircase{min-height:calc(8*32px + 30px)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo"><i></i><i></i><i></i><i></i></span>Note Blocks</div>
+  <div class="stars" id="stars">⭐ 0</div>
+  <button class="icon-btn" id="voiceBtn" title="Read aloud">🗣️</button>
+</header>
+<nav id="nav">
+  <button data-mode="play"><span class="em">🎹</span>Sing<span class="done" id="d-play"></span></button>
+  <button data-mode="climb"><span class="em">🪜</span>Climb<span class="done" id="d-climb"></span></button>
+  <button data-mode="highlow"><span class="em">↕️</span>High or Low<span class="done" id="d-highlow"></span></button>
+  <button data-mode="echo"><span class="em">🦜</span>Echo<span class="done" id="d-echo"></span></button>
+  <button data-mode="rhythm"><span class="em">🥁</span>Rhythm<span class="done" id="d-rhythm"></span></button>
+</nav>
+<main id="main"></main>
+<div class="toast" id="toast"></div>
+<div class="confetti" id="confetti"></div>
+
+<script>
+/* ============ NOTES & AUDIO ============ */
+const NOTES=[
+  {n:1,name:'Do',freq:261.63,col:'var(--c1)'},{n:2,name:'Re',freq:293.66,col:'var(--c2)'},
+  {n:3,name:'Mi',freq:329.63,col:'var(--c3)'},{n:4,name:'Fa',freq:349.23,col:'var(--c4)'},
+  {n:5,name:'Sol',freq:392.00,col:'var(--c5)'},{n:6,name:'La',freq:440.00,col:'var(--c6)'},
+  {n:7,name:'Ti',freq:493.88,col:'var(--c7)'},{n:8,name:'Do',freq:523.25,col:'var(--c8)'}];
+let ctx;
+function audio(){ if(!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();} if(ctx.state==='suspended')ctx.resume(); return ctx; }
+function tone(freq,dur=0.45,when=0,type='triangle',vol=.35){
+  const c=audio(),t=c.currentTime+when,o=c.createOscillator(),g=c.createGain();
+  o.type=type;o.frequency.value=freq;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.015);g.gain.exponentialRampToValueAtTime(.001,t+dur);
+  o.connect(g).connect(c.destination);o.start(t);o.stop(t+dur+.05);
+  // soft overtone for a warm, bell-like voice
+  const o2=c.createOscillator(),g2=c.createGain();o2.type='sine';o2.frequency.value=freq*2;
+  g2.gain.setValueAtTime(0,t);g2.gain.linearRampToValueAtTime(vol*.18,t+.01);g2.gain.exponentialRampToValueAtTime(.001,t+dur*.6);
+  o2.connect(g2).connect(c.destination);o2.start(t);o2.stop(t+dur);
+}
+function clap(when=0,accent=false){
+  const c=audio(),t=c.currentTime+when,len=.12,buf=c.createBuffer(1,c.sampleRate*len,c.sampleRate),d=buf.getChannelData(0);
+  for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2.5);
+  const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=buf;f.type='bandpass';f.frequency.value=accent?1400:1900;
+  g.gain.value=accent?.9:.6;s.connect(f).connect(g).connect(c.destination);s.start(t);
+}
+function tick(when=0,accent){ tone(accent?880:660,.08,when,'square',.12); }
+function happy(){ [0,4,7,12].forEach((s,i)=>tone(523.25*Math.pow(2,s/12),.35,i*.09,'triangle',.3)); }
+function sad(){ tone(220,.3,0,'sawtooth',.12);tone(196,.4,.18,'sawtooth',.12); }
+
+/* ============ VOICE ============ */
+let voiceOn=true;
+try{voiceOn=localStorage.getItem('nb-voice')!=='off';}catch(e){}
+function say(txt){
+  if(!voiceOn||!('speechSynthesis' in window))return;
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.rate=.95;u.pitch=1.15;speechSynthesis.speak(u);}catch(e){}
+}
+const voiceBtn=document.getElementById('voiceBtn');
+function paintVoice(){voiceBtn.classList.toggle('off',!voiceOn);}
+voiceBtn.onclick=()=>{voiceOn=!voiceOn;try{localStorage.setItem('nb-voice',voiceOn?'on':'off');}catch(e){}paintVoice();if(voiceOn)say('Hello!');else{try{speechSynthesis.cancel();}catch(e){}}};
+paintVoice();
+
+/* ============ STARS ============ */
+let stars=0,done={};
+try{stars=+localStorage.getItem('nb-stars')||0;done=JSON.parse(localStorage.getItem('nb-done')||'{}');}catch(e){}
+function paintStars(){document.getElementById('stars').textContent='⭐ '+stars;for(const k in done)document.getElementById('d-'+k).textContent='⭐'.repeat(Math.min(done[k],3));}
+function award(mode,n=1){stars+=n;done[mode]=(done[mode]||0)+1;try{localStorage.setItem('nb-stars',stars);localStorage.setItem('nb-done',JSON.stringify(done));}catch(e){}paintStars();}
+paintStars();
+
+/* ============ HELPERS ============ */
+const main=document.getElementById('main');
+const el=(tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
+const rnd=n=>Math.random()*n|0;
+function toast(html,ms=1400){const t=document.getElementById('toast');t.innerHTML=html;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),ms);}
+function confetti(){const box=document.getElementById('confetti');const cols=['#e63946','#f77f1e','#ffd23f','#3fb54a','#2aa7e0','#5b4fcf','#c840b3','#ff6fa4'];
+  for(let i=0;i<60;i++){const p=el('i');p.style.left=rnd(100)+'vw';p.style.background=cols[rnd(8)];p.style.animationDelay=(Math.random()*.6)+'s';box.appendChild(p);setTimeout(()=>p.remove(),2400);}}
+function celebrate(txt,sub){happy();confetti();toast(txt+(sub?`<small>${sub}</small>`:''),1800);}
+
+function makeBlock(note,{mystery=false,label=true,small=false}={}){
+  const b=el('div','nb'+(mystery?' mystery':'')+(small?' small':''));b.style.setProperty('--col',note.col);b.dataset.n=note.n;
+  const st=el('div','stack');
+  for(let i=1;i<=note.n;i++){const k=el('div','blk'+(i===note.n?' face':''));if(i===note.n)k.appendChild(el('div','mouth'));st.appendChild(k);}
+  if(mystery)st.appendChild(el('div','q','?'));
+  b.appendChild(st);
+  if(label){b.appendChild(el('div','lbl',note.name));b.appendChild(el('div','num',note.n));}
+  return b;
+}
+function sing(b,dur=.5){
+  const note=NOTES[b.dataset.n-1];tone(note.freq,dur);
+  b.classList.remove('sing');void b.offsetWidth;b.classList.add('sing');b.classList.add('glow');
+  setTimeout(()=>{b.classList.remove('sing');b.classList.remove('glow');},Math.max(350,dur*900));
+}
+function reveal(b){b.classList.remove('mystery');const q=b.querySelector('.q');if(q)q.remove();}
+
+/* ============ MODE: SING (free play) ============ */
+const SONGS={
+  'Twinkle ✨':[[1,1],[1,1],[5,1],[5,1],[6,1],[6,1],[5,2],[4,1],[4,1],[3,1],[3,1],[2,1],[2,1],[1,2]],
+  'Mary 🐑':[[3,1],[2,1],[1,1],[2,1],[3,1],[3,1],[3,2],[2,1],[2,1],[2,2],[3,1],[5,1],[5,2]],
+  'Up & Down 🪜':[[1,1],[2,1],[3,1],[4,1],[5,1],[6,1],[7,1],[8,2],[8,1],[7,1],[6,1],[5,1],[4,1],[3,1],[2,1],[1,2]],
+};
+let songTimer=[];
+function stopSong(){songTimer.forEach(clearTimeout);songTimer=[];}
+function modePlay(){
+  main.append(el('div','prompt','Tap a block to hear it sing!<small>Small blocks sing low. Tall blocks sing high.</small>'));
+  const stage=el('div','stage');
+  NOTES.forEach(n=>{const b=makeBlock(n);b.onclick=()=>{stopSong();sing(b);};stage.appendChild(b);});
+  main.append(stage);
+  const row=el('div','row');
+  for(const name in SONGS){const btn=el('button','big white',name);btn.onclick=()=>{stopSong();say('Listen!');let t=0;const blocks=[...stage.children];
+    SONGS[name].forEach(([n,len])=>{songTimer.push(setTimeout(()=>sing(blocks[n-1],len*.45),t));t+=len*380;});};row.append(btn);}
+  main.append(row);
+  say('Tap a block to hear it sing.');
+}
+
+/* ============ MODE: CLIMB (build the scale) ============ */
+function modeClimb(){
+  let next=1,mistakes=0;
+  main.append(el('div','prompt','Build the music stairs!<small>Tap the blocks from smallest to biggest.</small>'));
+  const stair=el('div','staircase');const pool=el('div','stage');
+  shuffle([...NOTES]).forEach(n=>{const b=makeBlock(n);b.onclick=()=>{
+    if(+b.dataset.n===next){sing(b);stair.appendChild(b);next++;
+      if(next>8){say('You built the scale!');setTimeout(async()=>{const bl=[...stair.children];for(const x of bl){sing(x,.4);await sleep(300);}
+        await sleep(200);celebrate('🪜 Do Re Mi Fa Sol La Ti Do!','That is a scale!');award('climb',mistakes?1:2);restart('climb');},400);}
+    }else{sad();b.classList.remove('wrong');void b.offsetWidth;b.classList.add('wrong');mistakes++;say(next===1?'Find the smallest block.':'Which one is just a bit bigger?');}
+  };pool.appendChild(b);});
+  main.append(stair,pool);
+  say('Tap the blocks from smallest to biggest.');
+}
+
+/* ============ MODE: HIGH OR LOW ============ */
+function modeHighLow(){
+  const rounds=5;let round=0,score=0;
+  const level=Math.min(done.highlow||0,3); // closer notes as they improve
+  const prompt=el('div','prompt');const stage=el('div','stage');const dots=el('div','dots');const row=el('div','row');
+  for(let i=0;i<rounds;i++)dots.append(el('i'));
+  main.append(prompt,stage,dots,row);
+  function ask(){
+    stage.innerHTML='';row.innerHTML='';
+    const gap=[4,3,2,1][level]+rnd(2);let a=rnd(8-gap)+1,b=a+gap;if(Math.random()<.5)[a,b]=[b,a];
+    const wantHigh=Math.random()<.5;
+    const A=makeBlock(NOTES[a-1],{mystery:true,label:false}),B=makeBlock(NOTES[b-1],{mystery:true,label:false});
+    stage.append(A,B);
+    prompt.innerHTML=`Which one sings <b>${wantHigh?'HIGHER ⬆️':'LOWER ⬇️'}</b>?<small>Tap a block to hear it again.</small>`;
+    let locked=true;
+    const listen=async()=>{locked=true;sing(A,.6);await sleep(700);sing(B,.6);await sleep(600);locked=false;};
+    const again=el('button','big white','<span class="em">🔁</span>Listen');again.onclick=()=>{if(!locked)listen();};
+    const pick=(blk,other,n,m)=>{if(locked)return;locked=true;const correct=wantHigh?n>m:n<m;
+      reveal(A);reveal(B);sing(blk,.6);
+      dots.children[round].className=correct?'ok':'bad';if(correct){score++;happy();say('Yes!');}else{sad();say(wantHigh?'That one is lower. See? Fewer blocks.':'That one is higher. See? More blocks.');}
+      round++;setTimeout(()=>{if(round<rounds)ask();else finish();},correct?1300:2400);};
+    A.onclick=()=>locked?0:pick(A,B,a,b);B.onclick=()=>locked?0:pick(B,A,b,a);
+    A.addEventListener('click',()=>{if(locked&&!A.classList.contains('mystery'))sing(A);});
+    B.addEventListener('click',()=>{if(locked&&!B.classList.contains('mystery'))sing(B);});
+    row.append(again);
+    say(wantHigh?'Which one sings higher?':'Which one sings lower?');setTimeout(listen,900);
+  }
+  function finish(){
+    const n=score>=4?2:score>=2?1:0;
+    if(n){celebrate(`⭐ ${score} out of ${rounds}!`,'Higher sounds have more blocks.');award('highlow',n);}else{toast('Good try! 💪<small>Tall blocks sing high, small blocks sing low.</small>',2200);}
+    restart('highlow');
+  }
+  ask();
+}
+
+/* ============ MODE: ECHO (copy the tune) ============ */
+function modeEcho(){
+  const lvl=Math.min(done.echo||0,4);const range=[3,4,5,6,8][lvl];const targetLen=[2,3,3,4,4][lvl];
+  let seq=[],input=[],busy=true,round=0;const rounds=4;
+  const prompt=el('div','prompt','The parrot sings. You sing it back!<small>Watch, listen, then tap the same blocks.</small>');
+  const stage=el('div','stage');const dots=el('div','dots');const row=el('div','row');
+  const blocks=NOTES.slice(0,range).map(n=>{const b=makeBlock(n);b.onclick=()=>{if(busy)return;sing(b);input.push(n.n);check();};stage.appendChild(b);return b;});
+  for(let i=0;i<rounds;i++)dots.append(el('i'));
+  const again=el('button','big white','<span class="em">🦜</span>Listen again');again.onclick=()=>{if(!busy)play();};
+  row.append(again);main.append(prompt,stage,dots,row);
+  function newSeq(){const len=targetLen-(round<1?1:0)+(round===rounds-1?1:0);seq=[];let last=-1;while(seq.length<len){const n=rnd(range)+1;if(n!==last||Math.random()<.3){seq.push(n);last=n;}}}
+  async function play(){busy=true;input=[];stage.classList.add('dimmed');say('Listen.');await sleep(500);for(const n of seq){sing(blocks[n-1],.45);await sleep(560);}busy=false;say('Your turn!');}
+  function check(){const i=input.length-1;
+    if(input[i]!==seq[i]){busy=true;sad();dots.children[round].className='bad';say('Almost! Listen again.');setTimeout(play,1200);return;}
+    if(input.length===seq.length){busy=true;happy();dots.children[round].className='ok';say('Yes!');round++;
+      setTimeout(()=>{if(round<rounds){newSeq();play();}else{celebrate('🦜 Perfect echo!','You copied every tune.');award('echo',2);restart('echo');}},900);}
+  }
+  newSeq();setTimeout(play,900);
+}
+
+/* ============ MODE: RHYTHM (build 4 beats) ============ */
+function modeRhythm(){
+  const rounds=4;let round=0,built=[],target=[],busy=false;
+  const prompt=el('div','prompt');const barBox=el('div','row');const bar=el('div','bar');const beats=el('div','beats');
+  for(let i=0;i<4;i++)beats.append(el('i'));
+  const dots=el('div','dots');for(let i=0;i<rounds;i++)dots.append(el('i'));
+  const row=el('div','row');const hint=el('div','hint','A bar holds 4 beats. Short + short = long!');
+  const b1=el('button','big','<span class="em">🟥</span>ta'),b2=el('button','big','<span class="em">🟧</span>ta-a'),
+        undo=el('button','big white','↩️'),listen=el('button','big white','<span class="em">👂</span>Listen'),
+        go=el('button','big green','<span class="em">▶️</span>Play mine');
+  b1.onclick=()=>add(1);b2.onclick=()=>add(2);undo.onclick=()=>{if(busy)return;built.pop();draw();};
+  listen.onclick=()=>{if(!busy)playPattern(target,false);};go.onclick=()=>{if(!busy&&sum()===4)playPattern(built,true);};
+  row.append(listen,b1,b2,undo,go);barBox.append(bar);
+  main.append(prompt,barBox,beats,dots,row,hint);
+  const sum=()=>built.reduce((a,b)=>a+b,0);
+  function add(n){if(busy||sum()+n>4)return;built.push(n);(n===1?clap():clap(0,true));draw();}
+  function draw(){bar.innerHTML='';built.forEach(n=>bar.append(el('div','note n'+n,n===1?'ta':'ta-a')));let left=4-sum();while(left-->0)bar.append(el('div','slot'));go.disabled=sum()!==4;}
+  function makeTarget(){const opts=[[1,1,1,1],[2,1,1],[1,1,2],[1,2,1],[2,2]];const lvl=done.rhythm||0;const pool=lvl?opts:opts.slice(0,3);let t;do{t=pool[rnd(pool.length)];}while(target.join()===t.join());target=t;}
+  async function playPattern(pat,checkIt){
+    busy=true;const beat=520;const notes=checkIt?[...bar.querySelectorAll('.note')]:[];
+    // count-in
+    for(let i=0;i<4;i++){tick(0,i===0);beats.children[i].classList.add('on');await sleep(beat);beats.children[i].classList.remove('on');}
+    let pos=0;
+    for(let i=0;i<pat.length;i++){const n=pat[i];clap(0,n===2);if(notes[i]){notes[i].classList.add('hit');}
+      for(let k=0;k<n;k++){beats.children[pos].classList.add('on');await sleep(beat);beats.children[pos].classList.remove('on');pos++;}
+      if(notes[i])notes[i].classList.remove('hit');}
+    busy=false;
+    if(checkIt){const ok=built.join()===target.join();dots.children[round].className=ok?'ok':'bad';
+      if(ok){happy();say('You got it!');round++;setTimeout(()=>{if(round<rounds)next();else{celebrate('🥁 Rhythm master!','Short + short = long.');award('rhythm',2);restart('rhythm');}},900);}
+      else{sad();say('Not quite. Listen once more.');setTimeout(()=>playPattern(target,false),800);}}
+  }
+  function next(){built=[];draw();makeTarget();prompt.innerHTML=`Listen to the claps. Build the same rhythm!<small>Round ${round+1} of ${rounds}</small>`;say('Listen to the claps, then build the same rhythm.');setTimeout(()=>playPattern(target,false),1200);}
+  next();
+}
+
+/* ============ ROUTER ============ */
+const MODES={play:modePlay,climb:modeClimb,highlow:modeHighLow,echo:modeEcho,rhythm:modeRhythm};
+let current='play';
+function restart(m){setTimeout(()=>{if(current===m)setMode(m);},2600);}
+function setMode(m){stopSong();try{speechSynthesis.cancel();}catch(e){}current=m;main.innerHTML='';
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));MODES[m]();}
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{audio();setMode(b.dataset.mode);});
+document.addEventListener('pointerdown',()=>audio(),{once:true});
+setMode('play');
+</script>
+</body>
+</html>

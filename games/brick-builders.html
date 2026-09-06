@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7c936">
+<title>Brick Builders · Quentin Funcade</title>
+<style>
+:root{--ink:#203e50;--paper:#fffbed;--yellow:#f7c936;--blue:#287fba;--red:#e65c46;--green:#37895b}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Avenir Next","Trebuchet MS",sans-serif}button,select{font:inherit;color:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible{outline:4px solid #203e50;outline-offset:4px}[hidden]{display:none!important}header{max-width:1120px;margin:auto;padding:55px 24px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:900;font-size:23px;letter-spacing:-1px;display:flex;gap:12px;align-items:center}.logo{background:var(--red);color:white;padding:6px 13px;transform:rotate(-7deg);border-radius:7px;border-bottom:5px solid #b33728}.tools{display:flex;gap:8px;align-items:center}.small{border:2px solid #d8daca;background:white;border-radius:12px;padding:10px 13px;font-size:13px;font-weight:800}main{max-width:1080px;margin:auto;padding:8px 24px 24px}.intro{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:8px 0 20px}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:900;color:#577276}h1{font-size:clamp(30px,4.5vw,48px);letter-spacing:-2px;line-height:1.1;margin:7px 0}p{line-height:1.5}.intro p{margin:5px 0;color:#526977}.level{font-size:12px;font-weight:800;display:grid;gap:6px}.level select{border:2px solid #d8daca;border-radius:10px;background:white;padding:9px;max-width:100%}.world{position:relative;border:3px solid var(--ink);border-radius:22px;overflow:hidden;background:#cae9ec;box-shadow:0 7px 0 #203e5012}.world svg{display:block;width:100%;height:auto}.world-top{position:absolute;top:12px;left:15px;right:15px;display:flex;justify-content:space-between;align-items:center;gap:8px}.world-label,.counter{background:#fffbedee;padding:7px 12px;border-radius:8px;font-size:11px;font-weight:900;letter-spacing:1px;text-transform:uppercase}.route{display:flex;gap:7px;margin:17px 0 21px}.route span{flex:1;background:#e8e8da;border-radius:7px;height:9px}.route .done{background:var(--green)}.route .current{background:var(--yellow)}.workbench{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:center;background:white;border:2px solid #e0dfcf;border-radius:22px;padding:25px}.mission-tag{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#b3402e;font-weight:900}h2{font-size:27px;letter-spacing:-.8px;margin:8px 0}.instruction{margin:8px 0;font-size:17px}.visual{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;min-height:85px;margin:14px 0}.pile{display:flex;gap:6px;flex-wrap:wrap;max-width:190px;justify-content:center;padding:8px}.piece{display:inline-block;width:32px;height:23px;background:var(--blue);border-radius:3px;box-shadow:inset 0 -5px #0002;position:relative;margin-top:5px}.piece:before,.piece:after{content:"";position:absolute;top:-5px;width:10px;height:6px;border-radius:3px 3px 0 0;background:inherit;left:4px}.piece:after{left:18px}.pile.second .piece{background:var(--red)}.piece.removed{opacity:.3;background:#69777a}.piece.removed:after{width:30px;height:3px;background:#203e50;transform:rotate(-35deg);left:0;top:10px}.group{border:2px dashed #92b5a0;border-radius:12px;max-width:110px;background:#f1f8ef}.operator{font-size:30px;font-weight:900}.equation{text-align:center;font-size:30px;font-weight:900;letter-spacing:3px}.answers{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.answer{min-width:75px;min-height:69px;border:2px solid #ba9425;border-bottom-width:6px;border-radius:12px;background:var(--yellow);font-size:32px;font-weight:900;transition:transform .15s}.answer:hover{transform:translateY(-3px)}.answer:active{transform:translateY(2px)}.answer:disabled{cursor:default;opacity:.45;transform:none}.answer.correct{background:#bce6bc;border-color:var(--green);opacity:1}.feedback{min-height:48px;text-align:center;font-size:15px;font-weight:700;line-height:1.5;margin:17px 0 5px}.next{display:block;margin:12px auto 0;background:var(--ink);color:white;border:0;border-bottom:5px solid #102c3b;border-radius:12px;padding:14px 24px;font-size:17px;font-weight:900}.slots{display:flex;gap:8px;justify-content:center;margin-bottom:15px}.slot{display:grid;place-items:center;min-width:46px;height:46px;border:2px dashed #96adb4;border-radius:8px;background:#f2f7f6;font-size:25px;font-weight:900}.hint{font-size:13px;color:#597078;text-align:center;margin:8px 0}.finished{text-align:center;padding:20px}.finished h2{font-size:34px}.finished .medal{font-size:50px}footer{text-align:center;color:#657778;font-size:11px;padding:10px 15px 25px}.built{animation:build .5s ease-out}#truck{transform:translateX(0)}.world.animating{box-shadow:0 0 0 5px #f7c93666}.world svg text{font-family:"Trebuchet MS",sans-serif;font-weight:900}.ghost{opacity:.16}.flag{animation:flag 2s ease-in-out infinite;transform-origin:870px 150px}@keyframes build{from{opacity:0;translate:0 -25px}to{opacity:1;translate:0 0}}@keyframes flag{50%{rotate:3deg}}@media(max-width:650px){header{padding:52px 16px 8px}.brand{font-size:19px}.tools .small{font-size:11px;padding:9px}.intro{align-items:start;flex-direction:column}.level{display:flex;align-items:center}main{padding:8px 14px 20px}.workbench{grid-template-columns:1fr;padding:19px;gap:5px}.world-label,.counter{font-size:8px;padding:5px 7px}.world-top{top:8px;left:8px;right:8px}h2{font-size:25px}.instruction{font-size:16px}.visual{min-height:55px;margin:9px 0}.answer{min-height:62px;min-width:68px}.route{margin:14px 0}.intro p{font-size:14px}.feedback{min-height:44px}.equation{font-size:26px}.world svg{min-height:175px;object-fit:cover}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="brand"><span class="logo" aria-hidden="true">▦</span> brick builders</div><div class="tools"><button class="small" id="sound" aria-pressed="false">♫ Voice off</button></div></header>
+<main>
+<div class="intro"><div><div class="eyebrow">A little math. A big build.</div><h1>Build a way to the party!</h1><p>Help Pip deliver the bricks. You’re the master builder.</p></div><label class="level">Number range <select id="level"><option value="easy">Little builders · up to 5</option><option value="big">Big builders · up to 10</option></select></label></div>
+<section class="world" aria-label="Your brick world"><div class="world-top"><span class="world-label" id="world-label">Brick Valley · Delivery day</span><span class="counter" id="counter">0 / 5 builds</span></div>
+<svg viewBox="0 0 1000 300" role="img" aria-labelledby="scene-title"><title id="scene-title">A truck waiting for you to build its route to a brick castle.</title><defs><pattern id="studs" width="22" height="18" patternUnits="userSpaceOnUse"><circle cx="11" cy="9" r="5" fill="#fff" opacity=".18"/><circle cx="11" cy="10" r="5" fill="none" stroke="#203e50" opacity=".1"/></pattern><g id="brick"><rect width="38" height="24" rx="3" fill="currentColor"/><path d="M6 0v-5h10v5m6 0v-5h10v5" fill="currentColor"/><path d="M0 20h38" stroke="#000" opacity=".13" stroke-width="5"/></g></defs><g id="camera">
+<circle cx="770" cy="72" r="29" fill="#f7c936"/><path d="M70 90h95m-73-14h49M405 80h120m-92-16h59" stroke="#fff" stroke-width="17" stroke-linecap="round" opacity=".75"/><path d="M0 194 100 116 200 192 310 128 450 198 600 127 710 196 840 133 1000 199V300H0" fill="#8fc6a3"/><path d="M0 221h1000v79H0" fill="#79ab63"/><path d="M0 221h1000v79H0" fill="url(#studs)"/>
+<path d="M0 255h1000" stroke="#dacdac" stroke-width="45"/><path d="M0 255h1000" stroke="#fff8da" stroke-width="3" stroke-dasharray="14 15"/><path d="M280 223q40 14 75 0v77h-75Z" fill="#53b8d5"/>
+<g id="supply" class="ghost" style="color:#e65c46"><use href="#brick" x="116" y="180"/><use href="#brick" x="157" y="180"/><use href="#brick" x="137" y="151"/></g>
+<g id="bridge" class="ghost"><path d="M273 247h90" stroke="#287fba" stroke-width="18"/><path d="M273 233h90m-84-17v29m25-29v29m25-29v29m27-29v29" stroke="#f7c936" stroke-width="7"/></g>
+<g id="rubble" style="color:#e65c46"><use href="#brick" x="424" y="237"/><use href="#brick" x="465" y="237"/><use href="#brick" x="444" y="209"/></g>
+<g id="stairs" class="ghost"><path d="M575 262v-17h28v-18h28v-18h28v53Z" fill="#f7c936" stroke="#be932a" stroke-width="3"/><path d="M585 245h15m12-18h16m12-18h16" stroke="#fff" stroke-width="3" opacity=".5"/></g>
+<g id="castle" class="ghost"><path d="M790 228V139h20v16h18v-16h20v89m38 0V139h20v16h18v-16h20v89" fill="#287fba" stroke="#226997" stroke-width="3"/><path d="M840 183h54v45h-54" fill="#e65c46"/><path d="M856 229v-24a11 11 0 0 1 22 0v24" fill="#203e50"/><path d="M802 177h10m18 20h10m61-20h10m18 20h10" stroke="#cceaf3" stroke-width="8"/><g class="flag"><path d="M870 181v-65" stroke="#203e50" stroke-width="4"/><path d="m872 117 39 10-39 13" fill="#f7c936"/></g></g>
+<g id="party" style="display:none"><path d="m737 112 227-12" stroke="#203e50" stroke-width="2"/><path d="m750 111 12 22 10-23m27-1 12 22 10-23m28-1 12 22 10-23m27-1 12 22 10-23" fill="#e65c46"/><text x="860" y="83" text-anchor="middle" font-size="28">★ ★ ★</text></g>
+<g id="crane" style="display:none"><path d="M510 231V109h-83" fill="none" stroke="#f7c936" stroke-width="10"/><path d="m510 112-64 0 64 65" fill="none" stroke="#bd9022" stroke-width="3"/><rect x="491" y="226" width="39" height="14" rx="4" fill="#203e50"/><g id="hook"><path d="M435 113v63q0 10 9 7" fill="none" stroke="#203e50" stroke-width="3"/></g></g>
+<g id="builder" style="display:none"><circle cx="0" cy="-29" r="8" fill="#f7c936"/><path d="M-10-34h20" stroke="#e65c46" stroke-width="5"/><path d="M-7-18h14v16H-7" fill="#287fba"/><path d="m-5-2-3 8m13-8 3 8M-7-15l-8 7m22-7 8-7" stroke="#203e50" stroke-width="4" stroke-linecap="round"/></g>
+<g id="flying" aria-hidden="true"></g>
+<g id="truck"><rect x="28" y="216" width="75" height="32" rx="5" fill="#f7c936"/><path d="M100 248v-51h30l18 23v28" fill="#e65c46"/><path d="M107 204h19l10 15h-29" fill="#dff4f2"/><rect x="35" y="207" width="60" height="10" rx="2" fill="#f7c936"/><circle cx="50" cy="251" r="13" fill="#203e50"/><circle cx="126" cy="251" r="13" fill="#203e50"/><circle cx="50" cy="251" r="6" fill="#e9e4cc"/><circle cx="126" cy="251" r="6" fill="#e9e4cc"/><circle cx="116" cy="209" r="6" fill="#f7c936"/><circle cx="118" cy="208" r="1" fill="#203e50"/><g id="cargo"></g></g>
+</g></svg></section>
+<div class="route" id="route" aria-label="Build progress"></div>
+<section class="workbench" id="workbench" aria-labelledby="mission"><div><div class="mission-tag" id="skill"></div><h2 id="mission" tabindex="-1"></h2><p class="instruction" id="instruction"></p><button class="small" id="hear">♫ Read to me</button><div class="visual" id="visual" aria-hidden="true"></div><div class="equation" id="equation" aria-hidden="true"></div></div><div><div class="slots" id="slots" hidden aria-label="Numbers in order"></div><p class="hint" id="answer-hint">Tap your answer.</p><div class="answers" id="answers"></div><p class="feedback" id="feedback" role="status" aria-live="polite"></p><button class="next" id="next" hidden>Next build →</button></div></section>
+<section class="finished" id="finished" hidden aria-labelledby="finish-title"><div class="medal" aria-hidden="true">🏆</div><div class="eyebrow">Delivery complete!</div><h2 id="finish-title" tabindex="-1">You built Brick Valley!</h2><p>You counted, added, subtracted, ordered, and made equal groups.<br>Now the bricks are here. Let’s have a party!</p><button class="next" id="again">Build a new valley →</button></section>
+</main><footer>A LEGO-inspired brick adventure · Made for ages 4–6 · No rush, no lost lives.</footer>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+let stage = 0, solved = false, voice = false, question, orderIndex = 0, animating = false;
+const stops = [0,115,275,400,565,635];
+let truckX = 0;
+const skills = ['Counting','Addition','Subtraction','Ordering','Multiplication'];
+const names = ['Load the delivery truck','Build a bridge','Clear the road','Build the steps','Build the party towers'];
+const outcomes = ['The bricks are loaded. Pip can drive to the river!','Your bridge is ready. Pip can cross the river!','The road is clear. Keep rolling, Pip!','Your steps are in order. The builders can climb up!','The towers are ready. The party can begin!'];
+function random(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+function shuffle(values){for(let i=values.length-1;i>0;i--){const j=random(0,i);[values[i],values[j]]=[values[j],values[i]]}return values}
+function makeQuestion(step,big){
+ const max=big?10:5;
+ if(step===0){const n=random(2,max);return {answer:n,text:'How many bricks go on Pip’s truck?',hint:'Touch each brick and count it once.',n}}
+ if(step===1){const a=random(1,max-1),b=random(1,max-a);return {answer:a+b,a,b,text:`We have ${a} bridge bricks. Add ${b} more. How many altogether?`,hint:'Count the blue bricks, then keep counting the red bricks.'}}
+ if(step===2){const a=random(3,max),b=random(1,a);return {answer:a-b,a,b,text:`There are ${a} bricks in the road. The crane takes away ${b}. How many are left to clear?`,hint:'The faded bricks were taken away. Count only the blue bricks.'}}
+ if(step===3){const values=shuffle(Array.from({length:max},(_,i)=>i+1)).slice(0,3).sort((a,b)=>a-b);return {answer:values,values:shuffle([...values]),text:'Tap the step numbers from smallest to biggest.',hint:'Find the smallest number that you have not used yet.'}}
+ const a=2,b=random(1,big?5:2);return {answer:a*b,a,b,text:`Build ${a} towers with ${b} bricks in each. How many bricks do we need?`,hint:`Each dotted box is one tower. Count all the bricks in both boxes.`};
+}
+function pieces(n,extra=''){return `<div class="pile ${extra}">${'<span class="piece"></span>'.repeat(n)}</div>`}
+function speak(text){if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.82;window.speechSynthesis.speak(u)}
+function read(){speak(names[stage]+'. '+question.text+(stage===0?' Count the bricks shown.':''))}
+const svgNS='http://www.w3.org/2000/svg';
+function svgNode(tag,attrs,parent){const node=document.createElementNS(svgNS,tag);for(const [key,value] of Object.entries(attrs))node.setAttribute(key,value);parent.append(node);return node}
+function brick(parent,x,y,color='#287fba',width=28,height=17){
+ const g=svgNode('g',{},parent);
+ svgNode('rect',{x,y,width,height,rx:2,fill:color},g);
+ for(const dx of [4,width-10])svgNode('rect',{x:x+dx,y:y-4,width:6,height:5,rx:1,fill:color},g);
+ svgNode('path',{d:`M${x} ${y+height-3}h${width}`,stroke:'#203e50','stroke-opacity':.2,'stroke-width':3},g);return g;
+}
+function motion(node,frames,duration=500,delay=0){
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches){Object.assign(node.style,frames[frames.length-1]);return Promise.resolve()}
+ const animation=node.animate(frames,{duration,delay,easing:'ease-in-out',fill:'both'});
+ return animation.finished.then(()=>{Object.assign(node.style,frames[frames.length-1]);animation.cancel()});
+}
+async function fly(source,destination,color,delay=0,width=28,height=17){
+ const node=brick($('flying'),0,0,color,width,height);
+ await motion(node,[{transform:`translate(${source[0]}px,${source[1]}px)`,opacity:1},{transform:`translate(${(source[0]+destination[0])/2}px,${Math.min(source[1],destination[1])-65}px)`,offset:.5,opacity:1},{transform:`translate(${destination[0]}px,${destination[1]}px)`,opacity:1}],650,delay);node.remove();
+}
+function cargoPoint(i){return [33+(i%3)*20,193-Math.floor(i/3)*13]}
+function loadCargo(n){$('cargo').replaceChildren();for(let i=0;i<n;i++){const [x,y]=cargoPoint(i);brick($('cargo'),x,y,'#e65c46',18,12)}}
+async function drive(to){await motion($('truck'),[{transform:`translateX(${truckX}px)`},{transform:`translateX(${to}px)`}],850);truckX=to}
+function progress(){
+ const count=stage+(solved?1:0);
+ $('counter').textContent=`${count} / 5 builds`;
+ $('route').innerHTML=skills.map((skill,i)=>`<span class="${i<count?'done':i===count?'current':''}" title="${skill}"></span>`).join('');
+ $('route').setAttribute('aria-label',`${count} of 5 builds complete`);
+ $('scene-title').textContent=count===5?'The truck has reached the completed castle. Party time!':`${count} of 5 builds complete. ${count?outcomes[count-1]:'Pip is waiting to load the truck.'}`;
+}
+function prepareScene(){
+ $('flying').replaceChildren();
+ if(stage===0){
+  truckX=0;$('truck').style.transform='translateX(0)';$('cargo').replaceChildren();
+  for(const id of ['supply','bridge','rubble','stairs','castle']){$(id).replaceChildren();$(id).setAttribute('class','')}
+  $('party').style.display='none';$('builder').style.display='none';$('crane').style.display='none';
+  for(let i=0;i<question.n;i++)brick($('supply'),158+(i%3)*23,216-Math.floor(i/3)*17,'#e65c46',21,15);
+ }
+ if(stage===1){
+  $('bridge').replaceChildren();loadCargo(question.b);
+  for(let i=0;i<question.a;i++)brick($('bridge'),273+i*90/question.answer,242,'#287fba',90/question.answer,15);
+ }
+ if(stage===2){
+  $('rubble').replaceChildren();$('crane').style.display='block';$('hook').style.transform='';
+  for(let i=0;i<question.a;i++)brick($('rubble'),429+(i%3)*23,239-Math.floor(i/3)*18,i<question.answer?'#287fba':'#b2b6a7',21,16);
+  // The crane has already taken away b; show those bricks in its off-road bin.
+  [...$('rubble').children].slice(question.answer).forEach((node,i)=>node.style.transform=`translate(${70-(i%3)*23}px,${-45+Math.floor(i/3)*18}px)`);
+ }
+ if(stage===3)loadCargo(3);
+ if(stage===4)loadCargo(question.answer);
+ progress();
+}
+async function animateSuccess(){
+ animating=true;$('level').disabled=true;document.querySelector('.world').classList.add('animating');
+ document.querySelector('.world').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'center'});
+ $('feedback').textContent=['Loading your bricks…','Building your bridge…','The crane is clearing the last bricks…','Stacking your steps…','Unloading bricks for two equal towers…'][stage];
+ const q=question;
+ const closeup=`translate(${[0,-28,-284,-508,-600][stage]}px,-135px) scale(1.6)`;
+ await motion($('camera'),[{transform:'translate(0px,0px) scale(1)'},{transform:closeup}],400);
+ if(stage===0){
+  await Promise.all([...$('supply').children].map(async(node,i)=>{
+   const dest=cargoPoint(i);await motion(node,[{opacity:1},{opacity:0}],100,i*130);
+   await fly([158+(i%3)*23,216-Math.floor(i/3)*17],dest,'#e65c46',0,18,12);brick($('cargo'),...dest,'#e65c46',18,12);
+  }));await drive(stops[1]);
+ }else if(stage===1){
+  await Promise.all([...$('cargo').children].map(async(node,i)=>{
+   await motion(node,[{opacity:1},{opacity:0}],100,i*180);
+   const p=cargoPoint(i),x=273+(q.a+i)*90/q.answer;
+   await fly([truckX+p[0],p[1]],[x,242],'#e65c46',0,90/q.answer,15);brick($('bridge'),x,242,'#e65c46',90/q.answer,15);
+  }));$('cargo').replaceChildren();
+  await drive(stops[2]);
+ }else if(stage===2){
+  for(let i=0;i<q.answer;i++){
+   const node=$('rubble').children[i],x=429+(i%3)*23,y=239-Math.floor(i/3)*18;
+   await motion($('hook'),[{transform:'translate(0px,0px)'},{transform:`translate(${x-432}px,${y-180}px)`}],160);
+   await Promise.all([motion(node,[{transform:'translate(0px,0px)'},{transform:'translate(0px,-80px)'},{transform:`translate(${70-(i%3)*23}px,-65px)`}],400),motion($('hook'),[{transform:`translate(${x-432}px,${y-180}px)`},{transform:`translate(${x-432}px,${y-260}px)`},{transform:'translate(68px,-30px)'}],400)]);
+  }
+  await motion($('hook'),[{transform:$('hook').style.transform||'translate(0px,0px)'},{transform:'translate(0px,0px)'}],200);
+  await drive(stops[3]);
+ }else if(stage===3){
+  for(let i=0;i<3;i++){
+   const x=574+i*29,y=245-i*18,h=17+i*18;
+   const p=cargoPoint(i);$('cargo').children[i].style.opacity=0;
+   await fly([truckX+p[0],p[1]],[x,y],'#f7c936',0,28,h);
+   const step=brick($('stairs'),x,y,'#f7c936',28,h);svgNode('text',{x:x+14,y:y+14,'text-anchor':'middle','font-size':12,fill:'#203e50'},step).textContent=q.answer[i];
+  }
+  $('cargo').replaceChildren();$('builder').style.display='block';
+  await motion($('builder'),[{transform:'translate(557px,245px)'},{transform:'translate(588px,239px)'},{transform:'translate(617px,221px)'},{transform:'translate(646px,203px)'}],1200);
+  await drive(stops[4]);
+ }else{
+  for(let row=0;row<q.b;row++){
+   await Promise.all([0,1].map(async(tower)=>{
+    const i=row*2+tower,p=cargoPoint(i),x=795+tower*100,y=224-row*19;
+    $('cargo').children[i].style.opacity=0;
+    await fly([truckX+p[0],p[1]],[x,y],tower?'#e65c46':'#287fba',tower*120,42,18);
+    brick($('castle'),x,y,tower?'#e65c46':'#287fba',42,18);
+   }));
+  }
+  $('cargo').replaceChildren();await drive(stops[5]);$('party').style.display='block';
+  await motion($('party'),[{opacity:0,transform:'translateY(-25px)'},{opacity:1,transform:'translateY(0px)'}],500);
+ }
+ await motion($('camera'),[{transform:closeup},{transform:'translate(0px,0px) scale(1)'}],450);
+ animating=false;document.querySelector('.world').classList.remove('animating');$('level').disabled=false;
+ progress();$('feedback').textContent=outcomes[stage];$('next').textContent=stage===4?'Let’s party! ★':'Next build →';$('next').hidden=false;$('next').focus({preventScroll:true});
+ if(voice)speak(outcomes[stage]);
+}
+function render(){
+ solved=false;orderIndex=0;question=makeQuestion(stage,$('level').value==='big');
+ $('workbench').hidden=false;$('finished').hidden=true;$('next').hidden=true;$('level').disabled=false;
+ $('skill').textContent=`Build ${stage+1} of 5 · ${skills[stage]}`;$('mission').textContent=names[stage];$('instruction').textContent=question.text;
+ $('feedback').textContent='';$('answer-hint').textContent=stage===3?'Tap smallest → biggest.':'Tap your answer.';
+ $('slots').hidden=stage!==3;$('slots').innerHTML='<span class="slot">?</span>'.repeat(3);
+ const q=question;
+ $('visual').innerHTML=stage===0?pieces(q.n):stage===1?pieces(q.a)+'<span class="operator">+</span>'+pieces(q.b,'second'):stage===2?`<div class="pile">${'<span class="piece"></span>'.repeat(q.a-q.b)}${'<span class="piece removed"></span>'.repeat(q.b)}</div>`:stage===3?'<span class="operator">▂ ▅ █</span>':Array.from({length:q.a},()=>pieces(q.b,'group')).join('');
+ $('equation').textContent=stage===1?`${q.a} + ${q.b} = ?`:stage===2?`${q.a} − ${q.b} = ?`:stage===4?`${q.a} × ${q.b} = ?`:'';
+ let options;
+ if(stage===3)options=q.values;
+ else{const pool=shuffle(Array.from({length:($('level').value==='big'?11:6)},(_,i)=>i).filter(n=>n!==q.answer));options=shuffle([q.answer,...pool.slice(0,2)])}
+ $('answers').replaceChildren();
+ options.forEach(n=>{const button=document.createElement('button');button.className='answer';button.textContent=n;button.setAttribute('aria-label',String(n));button.addEventListener('click',()=>attempt(n,button));$('answers').append(button)});
+ prepareScene();if(voice)read();
+}
+function attempt(n,button){
+ if(solved||button.disabled)return;
+ const correct=stage===3?question.answer[orderIndex]:question.answer;
+ if(n!==correct){$('feedback').textContent='Let’s try again. '+question.hint;if(voice)speak($('feedback').textContent);return}
+ button.classList.add('correct');
+ if(stage===3){button.disabled=true;$('slots').children[orderIndex].textContent=n;orderIndex++;if(orderIndex<3){$('feedback').textContent='Yes! Now find the next smallest number.';const available=[...$('answers').children].find(b=>!b.disabled);available.focus();return}}
+ solved=true;for(const b of $('answers').children)b.disabled=true;
+ animateSuccess();
+}
+$('next').addEventListener('click',()=>{if(!solved||animating)return;if(stage===4){$('workbench').hidden=true;$('finished').hidden=false;$('finish-title').focus();if(voice)speak('You built Brick Valley! Let’s have a party!');return}stage++;render();$('mission').focus()});
+$('again').addEventListener('click',()=>{stage=0;render();$('mission').focus()});
+$('level').addEventListener('change',()=>{stage=0;render()});
+$('sound').addEventListener('click',()=>{voice=!voice;$('sound').textContent=voice?'♫ Voice on':'♫ Voice off';$('sound').setAttribute('aria-pressed',String(voice));if(voice)read();else if('speechSynthesis' in window)window.speechSynthesis.cancel()});
+$('hear').addEventListener('click',read);
+window.addEventListener('pagehide',()=>{if('speechSynthesis' in window)window.speechSynthesis.cancel()});
+if(!('speechSynthesis' in window)){$('sound').hidden=true;$('hear').hidden=true}
+render();
+</script>
+</body>
+</html>
