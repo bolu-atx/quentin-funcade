@@ -40,9 +40,15 @@ npm run deploy     # wrangler pages deploy .
 The site root is the deploy output — there is no build. `_headers` tells
 Cloudflare to always revalidate HTML so game updates go live immediately.
 
-To switch to auto-deploy on every push, connect this repo in the Cloudflare
-dashboard: Workers & Pages -> quentin-funcade -> Settings -> Builds & deployments.
-Leave the build command empty and set the output directory to `/`.
+### Auto-deploy on merge to main
+
+`.github/workflows/deploy.yml` deploys the site with `wrangler pages deploy`
+on every push to `main`. It needs two repository secrets:
+
+- `CLOUDFLARE_API_TOKEN` — a token with the "Cloudflare Pages: Edit" permission.
+- `CLOUDFLARE_ACCOUNT_ID` — the account ID from the Cloudflare dashboard.
+
+Set them under Settings -> Secrets and variables -> Actions.
 
 ## Add a game
 
