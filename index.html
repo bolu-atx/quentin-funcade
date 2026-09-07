@@ -46,14 +46,13 @@
     footer{text-align:center;font-size:12px;color:#848679;padding:10px 15px 30px}
 
     /* ---- player shell ---- */
-    .player{position:fixed;inset:0;z-index:50;background:#000}
-    .player iframe{width:100%;height:100%;border:0;display:block}
-    .pill{position:fixed;top:12px;right:12px;z-index:52;background:#243d55cc;color:#fff;font-weight:800;font-size:13px;font-variant-numeric:tabular-nums;padding:6px 12px;border-radius:20px;letter-spacing:.5px;pointer-events:none;opacity:.55}
-    .pill.low{background:#b23b3bdd;opacity:1}
-    .exit{position:fixed;top:10px;left:10px;z-index:52;background:#243d5566;color:#fff;border:0;border-radius:16px;padding:7px 12px;font-size:11px;font-weight:800;letter-spacing:.4px;overflow:hidden;opacity:.4;transition:opacity .2s}
-    .exit:hover,.exit:active{opacity:1}
-    .hold-fill{position:absolute;inset:0;background:#2873b9;transform:scaleX(0);transform-origin:left;opacity:.9}
-    .hold-label{position:relative}
+    .player{position:fixed;inset:0;z-index:50;background:#000;display:flex;flex-direction:column}
+    .game-bar{min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px;background:var(--ink);color:#fff;border-bottom:3px solid var(--yellow);box-shadow:0 2px 10px #0008}
+    .player iframe{width:100%;flex:1;min-height:0;border:0;display:block}
+    .pill{background:#ffffff1c;color:#fff;font-weight:800;font-size:13px;font-variant-numeric:tabular-nums;padding:6px 12px;border:1px solid #ffffff30;border-radius:20px;letter-spacing:.5px;pointer-events:none}
+    .pill.low{background:#b23b3bdd;border-color:#d45b5b}
+    .exit{background:#ffffff18;color:#fff;border:1px solid #ffffff38;border-radius:12px;padding:7px 12px;font-size:11px;font-weight:800;letter-spacing:.4px;transition:background .2s,border-color .2s}
+    .exit:hover,.exit:active{background:#ffffff30;border-color:#fff}
 
     /* ---- time-up "system" screen ---- */
     .timeup{position:fixed;inset:0;z-index:60;background:#1f2b3a;color:#c7d4e0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;font-family:"SF Mono",SFMono-Regular,Menlo,Consolas,monospace}
@@ -64,11 +63,11 @@
     .timeup .term b{color:#9fb2c4;font-weight:600}
     .timeup .cursor{display:inline-block;width:8px;height:15px;background:#6f8397;vertical-align:middle;animation:blink 1.1s step-end infinite}
     @keyframes blink{50%{opacity:0}}
-    .timeup .exit{position:static;margin-top:30px;background:#2c3b4e;opacity:1;padding:12px 20px;font-size:12px;border-radius:12px}
+    .timeup .exit{position:static;margin-top:30px;background:#2c3b4e;padding:12px 20px;font-size:12px;border-radius:12px}
     .timeup .exit:hover{background:#33455b}
-    @media(prefers-reduced-motion:reduce){.cursor{animation:none}.hold-fill{transition:none}}
+    @media(prefers-reduced-motion:reduce){.cursor{animation:none}}
 
-    @media(max-width:560px){header{padding:18px 20px}main{padding:8px 16px 32px}.card{padding:20px}}
+    @media(max-width:560px){header{padding:18px 20px}main{padding:8px 16px 32px}.card{padding:20px}.game-bar{min-height:50px;padding:7px 10px}.exit{padding:6px 9px;font-size:10px}.pill{padding:5px 9px;font-size:12px}}
   </style>
 </head>
 <body>
@@ -94,8 +93,8 @@
         <button data-min="0">No timer</button>
       </div>
       <p>Choose a limit, then start a game. When time is up, the game shows a
-        "taking a break" screen. Hold the button in the top-left corner for two
-        seconds to exit at any time.</p>
+        "taking a break" screen. Use the game bar to return to the menu at any
+        time.</p>
     </section>
 
     <section class="grid" aria-label="Games" id="grid">
@@ -125,12 +124,11 @@
   <footer>Made for little learners · No rush, just fun. <span aria-hidden="true">♡</span></footer>
 
   <div class="player" id="player" hidden>
+    <div class="game-bar" aria-label="Game controls">
+      <button class="exit" id="exit" type="button">← games</button>
+      <div class="pill" id="pill" role="timer" aria-live="off" hidden>⏱ 00:00</div>
+    </div>
     <iframe id="frame" title="Game" allow="autoplay"></iframe>
-    <button class="exit" id="exit" type="button" aria-label="Grown-ups: hold for two seconds to exit the game">
-      <span class="hold-fill" id="exitFill" aria-hidden="true"></span>
-      <span class="hold-label">✕ hold to exit</span>
-    </button>
-    <div class="pill" id="pill" role="timer" aria-live="off" hidden>⏱ 00:00</div>
   </div>
 
   <div class="timeup" id="timeup" role="alertdialog" aria-modal="true" aria-labelledby="timeup-title" hidden>
@@ -142,10 +140,7 @@
       <div>&gt; code: NAP-TIME &nbsp; reason: play timer reached</div>
       <div>&gt; ask a grown-up if you want to play more <span class="cursor"></span></div>
     </div>
-    <button class="exit" id="timeupExit" type="button" aria-label="Grown-ups: hold for two seconds to return to the game menu">
-      <span class="hold-fill" id="timeupFill" aria-hidden="true"></span>
-      <span class="hold-label">🔓 grown-ups: hold to exit</span>
-    </button>
+    <button class="exit" id="timeupExit" type="button">← back to games</button>
   </div>
 
   <script>
@@ -157,7 +152,6 @@
       set: (k,v) => { try { localStorage.setItem(k,v); } catch {} },
       del: k => { try { localStorage.removeItem(k); } catch {} },
     };
-    const HOLD_MS = 2000;
     let minutes = 10, tick;
 
     function fmt(ms) {
@@ -217,24 +211,6 @@
       document.body.style.overflow = '';
     }
 
-    function holdToExit(button, fill) {
-      let timer, start;
-      const stop = () => { clearInterval(timer); timer = null; fill.style.transform = 'scaleX(0)'; };
-      const step = () => {
-        const progress = Math.min(1, (Date.now() - start) / HOLD_MS);
-        fill.style.transform = 'scaleX(' + progress + ')';
-        if (progress >= 1) { stop(); exit(); }
-      };
-      button.addEventListener('pointerdown', event => {
-        event.preventDefault();
-        if (timer) return;
-        start = Date.now();
-        step();
-        timer = setInterval(step, 60);
-      });
-      for (const type of ['pointerup','pointerleave','pointercancel']) button.addEventListener(type, stop);
-    }
-
     $('mins').addEventListener('click', event => {
       const button = event.target.closest('button');
       if (button) setMinutes(Number(button.dataset.min));
@@ -243,8 +219,8 @@
       const card = event.target.closest('.card');
       if (card) launch(card.dataset.game);
     });
-    holdToExit($('exit'), $('exitFill'));
-    holdToExit($('timeupExit'), $('timeupFill'));
+    $('exit').addEventListener('click', exit);
+    $('timeupExit').addEventListener('click', exit);
 
     // Restore state so a page reload cannot reset the timer.
     const savedMinutes = store.get(LS.minutes);
