@@ -95,20 +95,20 @@
   .toast{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.6);background:#fff;padding:22px 34px;border-radius:26px;font-size:clamp(28px,5vw,48px);font-weight:900;box-shadow:0 8px 0 #e7dcc0,0 20px 40px rgba(0,0,0,.15);opacity:0;pointer-events:none;transition:all .25s;text-align:center;z-index:5}
   .toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
   .toast small{display:block;font-size:.45em;color:var(--muted);margin-top:6px}
-  .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:4}
-  .confetti i{position:absolute;top:-14px;width:12px;height:12px;border-radius:3px;animation:fall 1.6s linear forwards}
-  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}
 
   .staircase{display:flex;align-items:flex-end;gap:6px;min-height:calc(8*40px + 30px);padding:8px 14px;background:#fff8;border-radius:18px;border:3px dashed #e2d9c1;flex-wrap:nowrap}
   .staircase:empty:before{content:"Tap the smallest block first →";color:var(--muted);font-weight:700;align-self:center;padding:8px}
   .hint{color:var(--muted);font-weight:700;font-size:14px;text-align:center}
   @media (max-width:520px){.nb{--u:30px}.bar{--b:52px}.beats{--b:52px}.staircase{min-height:calc(8*32px + 30px)}}
 </style>
+<link rel="stylesheet" href="../shared/celebrations.css">
+<script src="../shared/celebrations.js"></script>
 </head>
 <body>
 <header>
   <div class="brand"><span class="logo"><i></i><i></i><i></i><i></i></span>Note Blocks</div>
   <div class="stars" id="stars">⭐ 0</div>
+  <button class="game-effects-button" data-game-effects aria-pressed="true">♫ Effects on</button>
   <button class="icon-btn" id="voiceBtn" title="Read aloud">🗣️</button>
 </header>
 <nav id="nav">
@@ -120,7 +120,7 @@
 </nav>
 <main id="main"></main>
 <div class="toast" id="toast"></div>
-<div class="confetti" id="confetti"></div>
+
 
 <script>
 /* ============ NOTES & AUDIO ============ */
@@ -148,7 +148,6 @@ function clap(when=0,accent=false){
   g.gain.value=accent?.9:.6;s.connect(f).connect(g).connect(c.destination);s.start(t);
 }
 function tick(when=0,accent){ tone(accent?880:660,.08,when,'square',.12); }
-function happy(){ [0,4,7,12].forEach((s,i)=>tone(523.25*Math.pow(2,s/12),.35,i*.09,'triangle',.3)); }
 function sad(){ tone(220,.3,0,'sawtooth',.12);tone(196,.4,.18,'sawtooth',.12); }
 
 /* ============ VOICE ============ */
@@ -177,9 +176,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
 const rnd=n=>Math.random()*n|0;
 function toast(html,ms=1400){const t=document.getElementById('toast');t.innerHTML=html;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),ms);}
-function confetti(){const box=document.getElementById('confetti');const cols=['#e63946','#f77f1e','#ffd23f','#3fb54a','#2aa7e0','#5b4fcf','#c840b3','#ff6fa4'];
-  for(let i=0;i<60;i++){const p=el('i');p.style.left=rnd(100)+'vw';p.style.background=cols[rnd(8)];p.style.animationDelay=(Math.random()*.6)+'s';box.appendChild(p);setTimeout(()=>p.remove(),2400);}}
-function celebrate(txt,sub){happy();confetti();toast(txt+(sub?`<small>${sub}</small>`:''),1800);}
+function celebrate(txt,sub){GameCelebration.celebrate({milestone:true});toast(txt+(sub?`<small>${sub}</small>`:''),1800);}
 
 function makeBlock(note,{mystery=false,label=true,small=false}={}){
   const b=el('div','nb'+(mystery?' mystery':'')+(small?' small':''));b.style.setProperty('--col',note.col);b.dataset.n=note.n;
@@ -223,7 +220,7 @@ function modeClimb(){
   main.append(el('div','prompt','Build the music stairs!<small>Tap the blocks from smallest to biggest.</small>'));
   const stair=el('div','staircase');const pool=el('div','stage');
   shuffle([...NOTES]).forEach(n=>{const b=makeBlock(n);b.onclick=()=>{
-    if(+b.dataset.n===next){sing(b);stair.appendChild(b);next++;
+    if(+b.dataset.n===next){GameCelebration.celebrate();sing(b);stair.appendChild(b);next++;
       if(next>8){say('You built the scale!');setTimeout(async()=>{const bl=[...stair.children];for(const x of bl){sing(x,.4);await sleep(300);}
         await sleep(200);celebrate('🪜 Do Re Mi Fa Sol La Ti Do!','That is a scale!');award('climb',mistakes?1:2);restart('climb');},400);}
     }else{sad();b.classList.remove('wrong');void b.offsetWidth;b.classList.add('wrong');mistakes++;say(next===1?'Find the smallest block.':'Which one is just a bit bigger?');}
@@ -251,7 +248,7 @@ function modeHighLow(){
     const again=el('button','big white','<span class="em">🔁</span>Listen');again.onclick=()=>{if(!locked)listen();};
     const pick=(blk,other,n,m)=>{if(locked)return;locked=true;const correct=wantHigh?n>m:n<m;
       reveal(A);reveal(B);sing(blk,.6);
-      dots.children[round].className=correct?'ok':'bad';if(correct){score++;happy();say('Yes!');}else{sad();say(wantHigh?'That one is lower. See? Fewer blocks.':'That one is higher. See? More blocks.');}
+      dots.children[round].className=correct?'ok':'bad';if(correct){score++;GameCelebration.celebrate();say('Yes!');}else{sad();say(wantHigh?'That one is lower. See? Fewer blocks.':'That one is higher. See? More blocks.');}
       round++;setTimeout(()=>{if(round<rounds)ask();else finish();},correct?1300:2400);};
     A.onclick=()=>locked?0:pick(A,B,a,b);B.onclick=()=>locked?0:pick(B,A,b,a);
     A.addEventListener('click',()=>{if(locked&&!A.classList.contains('mystery'))sing(A);});
@@ -281,7 +278,7 @@ function modeEcho(){
   async function play(){busy=true;input=[];stage.classList.add('dimmed');say('Listen.');await sleep(500);for(const n of seq){sing(blocks[n-1],.45);await sleep(560);}busy=false;say('Your turn!');}
   function check(){const i=input.length-1;
     if(input[i]!==seq[i]){busy=true;sad();dots.children[round].className='bad';say('Almost! Listen again.');setTimeout(play,1200);return;}
-    if(input.length===seq.length){busy=true;happy();dots.children[round].className='ok';say('Yes!');round++;
+    if(input.length===seq.length){busy=true;GameCelebration.celebrate();dots.children[round].className='ok';say('Yes!');round++;
       setTimeout(()=>{if(round<rounds){newSeq();play();}else{celebrate('🦜 Perfect echo!','You copied every tune.');award('echo',2);restart('echo');}},900);}
   }
   newSeq();setTimeout(play,900);
@@ -315,7 +312,7 @@ function modeRhythm(){
       if(notes[i])notes[i].classList.remove('hit');}
     busy=false;
     if(checkIt){const ok=built.join()===target.join();dots.children[round].className=ok?'ok':'bad';
-      if(ok){happy();say('You got it!');round++;setTimeout(()=>{if(round<rounds)next();else{celebrate('🥁 Rhythm master!','Short + short = long.');award('rhythm',2);restart('rhythm');}},900);}
+      if(ok){GameCelebration.celebrate();say('You got it!');round++;setTimeout(()=>{if(round<rounds)next();else{celebrate('🥁 Rhythm master!','Short + short = long.');award('rhythm',2);restart('rhythm');}},900);}
       else{sad();say('Not quite. Listen once more.');setTimeout(()=>playPattern(target,false),800);}}
   }
   function next(){built=[];draw();makeTarget();prompt.innerHTML=`Listen to the claps. Build the same rhythm!<small>Round ${round+1} of ${rounds}</small>`;say('Listen to the claps, then build the same rhythm.');setTimeout(()=>playPattern(target,false),1200);}
@@ -326,7 +323,7 @@ function modeRhythm(){
 const MODES={play:modePlay,climb:modeClimb,highlow:modeHighLow,echo:modeEcho,rhythm:modeRhythm};
 let current='play';
 function restart(m){setTimeout(()=>{if(current===m)setMode(m);},2600);}
-function setMode(m){stopSong();try{speechSynthesis.cancel();}catch(e){}current=m;main.innerHTML='';
+function setMode(m){GameCelebration.clear();stopSong();try{speechSynthesis.cancel();}catch(e){}current=m;main.innerHTML='';
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));MODES[m]();}
 document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{audio();setMode(b.dataset.mode);});
 document.addEventListener('pointerdown',()=>audio(),{once:true});
