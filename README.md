@@ -11,6 +11,9 @@ self-contained HTML file, and `index.html` is the hub that links them together.
 | Game | File | Skills | Ages |
 | --- | --- | --- | --- |
 | Banana Buddies | `games/banana-spelling.html` | Typing, letters, spelling | 2–6 |
+| Brick Builders | `games/brick-builders.html` | Math, building | 4–6 |
+| Note Blocks | `games/note-blocks.html` | Music, listening, rhythm | 4–8 |
+| Solar System Simulator | `games/solar-system.html` | Space, planets, orbits | 4–8 |
 
 ## Play timer
 
