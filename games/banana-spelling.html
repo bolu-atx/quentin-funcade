@@ -16,16 +16,18 @@
     .scene{display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:end;position:relative;z-index:1;gap:12px;max-width:850px;margin:14px auto 0}.challenge{text-align:center;align-self:start;padding-bottom:26px}.instruction{font-size:16px;font-weight:700;margin:8px 0 12px}.letter-card{display:grid;place-items:center;width:142px;height:155px;margin:auto;border:3px solid var(--ink);border-radius:25px;background:#fffdf7;box-shadow:0 7px 0 #bacdd3;font-family:"Arial Rounded MT Bold","Trebuchet MS",sans-serif;font-size:108px;font-weight:900;line-height:1;transform:rotate(-3deg)}.letter-card.pop{animation:pop .35s ease}.hint{margin:17px 0 0;font-size:14px;color:#56707a;min-height:20px}.hear{background:transparent;border:0;font-size:13px;font-weight:800;color:#336b91;padding:8px 12px;margin-top:2px}
     .buddy{position:relative;display:flex;justify-content:center;align-items:end;height:250px}.buddy svg{width:190px;height:238px;overflow:visible}.buddy.right svg{width:165px;height:208px;transform:rotate(7deg)}.speech{position:absolute;top:0;left:50%;transform:translateX(-50%) rotate(-7deg);background:#fffdf7;border-radius:16px 16px 4px 16px;white-space:nowrap;padding:10px 16px;font-size:15px;font-weight:900;box-shadow:0 3px 0 #c9dce2}.right .speech{top:21px;transform:translateX(-50%) rotate(5deg)}.buddy.celebrate svg{animation:dance .5s ease 2}
     .keyboard-wrap{max-width:740px;margin:26px auto 0;text-align:center}.keyboard{display:flex;flex-direction:column;gap:9px;align-items:center}.key-row{display:flex;justify-content:center;gap:8px;width:100%}.key{width:57px;height:54px;border:2px solid #ddd8c9;border-bottom-width:5px;border-radius:12px;background:#fffdf7;font-size:22px;font-weight:800;transition:background .15s,transform .15s}.key.target{background:var(--yellow);border-color:#c59e27;transform:translateY(-3px);box-shadow:0 0 0 4px #ffda432b}.key:active{transform:translateY(2px);border-bottom-width:2px}.keyboard-note{font-size:13px;color:#7c8079;margin:17px 0 0}.keyboard-note span{display:inline-block;width:9px;height:9px;background:var(--yellow);border:1px solid #c59e27;border-radius:3px;margin-right:5px}
-    footer{text-align:center;font-size:12px;color:#848679;padding:20px 15px 25px}.star{position:absolute;color:#80a8b6;font-size:29px;top:110px;left:35px;transform:rotate(15deg)}.star.second{left:auto;right:30px;top:200px;font-size:21px}.overlay{position:fixed;inset:0;background:#243d5570;z-index:5;display:grid;place-items:center;padding:22px;backdrop-filter:blur(5px)}[hidden]{display:none!important}.reward{position:relative;background:var(--paper);border:4px solid var(--yellow);border-radius:32px;padding:35px;text-align:center;width:min(440px,100%);box-shadow:0 15px 60px #243d5530}.reward .trophy{font-size:75px}.reward h2{font-size:34px;letter-spacing:-1px;margin:12px 0}.reward p{line-height:1.6;color:#64717a}.again{background:var(--yellow);border:2px solid #c59e27;border-bottom-width:5px;border-radius:16px;padding:14px 28px;font-weight:900;font-size:18px;margin-top:12px}.confetti{position:fixed;top:-25px;pointer-events:none;z-index:6;animation:fall 2.3s ease-in forwards;font-size:23px}
-    @keyframes pop{50%{transform:rotate(4deg) scale(1.12)}}@keyframes dance{50%{transform:translateY(-16px) rotate(-8deg)}}@keyframes fall{to{transform:translateY(110vh) rotate(280deg)}}
+    footer{text-align:center;font-size:12px;color:#848679;padding:20px 15px 25px}.star{position:absolute;color:#80a8b6;font-size:29px;top:110px;left:35px;transform:rotate(15deg)}.star.second{left:auto;right:30px;top:200px;font-size:21px}.overlay{position:fixed;inset:0;background:#243d5570;z-index:5;display:grid;place-items:center;padding:22px;backdrop-filter:blur(5px)}[hidden]{display:none!important}.reward{position:relative;background:var(--paper);border:4px solid var(--yellow);border-radius:32px;padding:35px;text-align:center;width:min(440px,100%);box-shadow:0 15px 60px #243d5530}.reward .trophy{font-size:75px}.reward h2{font-size:34px;letter-spacing:-1px;margin:12px 0}.reward p{line-height:1.6;color:#64717a}.again{background:var(--yellow);border:2px solid #c59e27;border-bottom-width:5px;border-radius:16px;padding:14px 28px;font-weight:900;font-size:18px;margin-top:12px}
+    @keyframes pop{50%{transform:rotate(4deg) scale(1.12)}}@keyframes dance{50%{transform:translateY(-16px) rotate(-8deg)}}
     @media(max-width:640px){header{padding:18px 20px}.brand{font-size:20px}.sound{font-size:12px;padding:9px 12px}main{padding:8px 14px 18px}.intro h1{letter-spacing:-1.5px}.intro p{font-size:14px}.eyebrow{font-size:10px}.mode{padding:9px 12px}.playground{padding:18px 12px 0;min-height:330px;border-radius:24px}.lab-label{font-size:10px;letter-spacing:.8px}.collection{gap:5px}.banana{font-size:17px}.collection-label{display:none}.scene{gap:0;margin-top:23px;grid-template-columns:1fr 1.3fr 1fr}.buddy{height:205px}.buddy svg{width:115px;height:170px}.buddy.right svg{width:95px;height:145px}.speech{font-size:11px;padding:8px;top:12px}.right .speech{top:34px}.letter-card{width:112px;height:129px;font-size:86px}.instruction{font-size:13px}.hint{font-size:12px}.key-row{gap:4px}.keyboard{gap:6px}.key{width:calc((100vw - 68px)/10);max-width:52px;height:46px;border-radius:8px;font-size:17px}.star{display:none}.keyboard-note{font-size:11px}.keyboard-wrap{margin-top:21px}}
     .mode-bar{flex-wrap:wrap}.letter-card.emoji-card{font-size:80px}.word{display:flex;justify-content:center;gap:5px;margin:17px 0 0}.word-letter{display:grid;place-items:center;width:32px;height:38px;border:2px solid #b8cdd4;border-radius:8px;background:#fffdf7;font-weight:900;font-size:23px}.word-letter.done{background:#d6efdf;border-color:#39866a;color:#28694d}.word-letter.next{background:var(--yellow);border-color:#c59e27}.word-letter.waiting{color:#6b7f87}
     @media(max-width:640px){.mode{font-size:12px;padding:9px 10px}.letter-card.emoji-card{font-size:68px}.word{gap:3px}.word-letter{width:26px;height:33px;font-size:20px}}
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.confetti{display:none}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
   </style>
+<link rel="stylesheet" href="../shared/celebrations.css">
+<script src="../shared/celebrations.js"></script>
 </head>
 <body>
-  <header><div class="brand"><span class="brand-icon" aria-hidden="true">🍌</span> banana buddies</div><button class="sound" id="sound" aria-pressed="false">♫ Sound off</button></header>
+  <header><div class="brand"><span class="brand-icon" aria-hidden="true">🍌</span> banana buddies</div><div class="game-audio-controls"><button class="sound" data-game-effects aria-pressed="true">♫ Effects on</button><button class="sound" id="sound" aria-pressed="false">♫ Voice off</button></div></header>
   <main>
     <section class="intro"><div class="eyebrow">Little fingers. Big adventures.</div><h1>Let’s type <span>with the Minions!</span></h1><p>Find a letter. Press its key. Collect a banana!</p></section>
     <nav class="mode-bar" aria-label="Choose typing practice"><button class="mode" data-mode="letters" aria-pressed="true">✦ Easy letters</button><button class="mode" data-mode="alphabet" aria-pressed="false">ABC adventure</button><button class="mode" data-mode="emoji" aria-pressed="false">🐱 Emoji words</button></nav>
@@ -54,7 +56,6 @@
     const emojiWords = [{emoji:'🐱',word:'CAT'},{emoji:'🐶',word:'DOG'},{emoji:'☀️',word:'SUN'},{emoji:'🚌',word:'BUS'},{emoji:'🐷',word:'PIG'},{emoji:'🥚',word:'EGG'},{emoji:'🐝',word:'BEE'},{emoji:'🐟',word:'FISH'},{emoji:'🌙',word:'MOON'},{emoji:'⭐',word:'STAR'}];
     let wordIndex = 0, letterIndex = 0;
     let mode = 'letters', current = 'A', count = 0, alphabetIndex = 0, sound = false, locked = false, advanceTimer;
-    let audioContext;
     const keys = new Map();
     for (const row of ['QWERTYUIOP','ASDFGHJKL','ZXCVBNM']) {
       const line = document.createElement('div'); line.className = 'key-row';
@@ -71,21 +72,6 @@
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'en-US'; utterance.rate = .8; utterance.pitch = 1.15;
       window.speechSynthesis.speak(utterance);
-    }
-    function chime() {
-      if (!sound) return;
-      try {
-        const Audio = window.AudioContext || window.webkitAudioContext;
-        if (!Audio) return;
-        audioContext ||= new Audio(); audioContext.resume().catch(() => {});
-        [523.25,659.25,783.99].forEach((frequency, index) => {
-          const oscillator = audioContext.createOscillator(), gain = audioContext.createGain();
-          const start = audioContext.currentTime + index * .09;
-          oscillator.type = 'sine'; oscillator.frequency.value = frequency;
-          gain.gain.setValueAtTime(0,start); gain.gain.linearRampToValueAtTime(.09,start+.02); gain.gain.exponentialRampToValueAtTime(.001,start+.3);
-          oscillator.connect(gain); gain.connect(audioContext.destination); oscillator.start(start); oscillator.stop(start+.31);
-        });
-      } catch { /* Typing remains available if audio is unavailable. */ }
     }
     function promptText() {
       return mode === 'emoji' ? 'Spell '+emojiWords[wordIndex].word.toLowerCase()+'. Find the letter '+current : 'Find the letter '+current;
@@ -130,7 +116,7 @@
       if (isEmoji) letterIndex++;
       const earnedBanana = !isEmoji || letterIndex === emojiWords[wordIndex].word.length;
       if (earnedBanana) count++;
-      render(); chime();
+      render(); GameCelebration.celebrate();
       $('feedback').textContent = isEmoji ? (earnedBanana ? 'You spelled '+emojiWords[wordIndex].word+'! 🍌' : 'Yes! Keep spelling!') : ['You found it!','Great typing!','You’re doing it!','Amazing, little buddy!','A whole basket!'][count-1];
       $('letter').classList.add('pop'); document.querySelectorAll('.buddy').forEach(b => b.classList.add('celebrate'));
       advanceTimer = setTimeout(count === 5 ? showReward : nextLetter, 1100);
@@ -140,12 +126,10 @@
       $('reward').hidden = false; document.querySelector('header').inert = true; document.querySelector('main').inert = true;
       $('again').focus();
       if (sound) speak('Hooray! You are a banana superstar!');
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) for (let i=0;i<22;i++) {
-        const piece = document.createElement('span'); piece.className='confetti'; piece.textContent=['🍌','★','●'][i%3]; piece.style.left=Math.random()*100+'vw'; piece.style.color=['#ffda43','#2873b9','#39866a'][i%3]; piece.style.animationDelay=Math.random()*.5+'s'; piece.setAttribute('aria-hidden','true'); document.body.append(piece); setTimeout(()=>piece.remove(),3000);
-      }
+      GameCelebration.celebrate({ milestone: true });
     }
     function restart(resetAlphabet = false) {
-      clearTimeout(advanceTimer); count=0; locked=false;
+      GameCelebration.clear(); clearTimeout(advanceTimer); count=0; locked=false;
       $('reward').hidden=true; document.querySelector('header').inert=false; document.querySelector('main').inert=false;
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       if (resetAlphabet) { alphabetIndex=0; wordIndex=0; letterIndex=0; current=mode === 'emoji' ? emojiWords[0].word[0] : 'A'; }
@@ -165,7 +149,7 @@
       document.querySelector('.intro p').textContent = mode === 'emoji' ? 'Name the picture. Type its word. Collect a banana!' : 'Find a letter. Press its key. Collect a banana!';
     }));
     $('sound').addEventListener('click',()=>{
-      sound=!sound; $('sound').setAttribute('aria-pressed',String(sound)); $('sound').textContent=sound?'♫ Sound on':'♫ Sound off';
+      sound=!sound; $('sound').setAttribute('aria-pressed',String(sound)); $('sound').textContent=sound?'♫ Voice on':'♫ Voice off';
       if(sound) speak(promptText()); else if('speechSynthesis' in window) window.speechSynthesis.cancel();
     });
     $('hear').addEventListener('click',()=>speak(promptText()));
