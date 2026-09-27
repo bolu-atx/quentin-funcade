@@ -10,6 +10,7 @@
 :root{--ink:#244837;--paper:#fffbed;--green:#386d47;--orange:#eb9162;--line:#d3ddbd}*{box-sizing:border-box}body{margin:0;background:#eff4d7;color:var(--ink);font-family:"Avenir Next","Trebuchet MS",sans-serif}button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible,summary:focus-visible{outline:4px solid #a34e23;outline-offset:4px}button:disabled{cursor:default;opacity:.5}[hidden]{display:none!important}header{max-width:1160px;margin:auto;padding:18px 24px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}.brand{font-weight:900;font-size:22px;letter-spacing:-1px}.controls{display:flex;flex-wrap:wrap;gap:8px}.small{border:1px solid #c5d0af;background:var(--paper);border-radius:22px;padding:10px 14px;font-size:13px;font-weight:800;min-height:44px}main{max-width:1160px;margin:auto;padding:0 24px 30px}.title{text-align:center;margin:12px 0 22px}.eyebrow{text-transform:uppercase;font-weight:800;font-size:11px;letter-spacing:3px;color:#587046}h1{font-family:"Arial Rounded MT Bold","Trebuchet MS",sans-serif;font-size:clamp(32px,5vw,52px);letter-spacing:-2px;margin:5px 0}h1 span{color:#b3502a}.title p{margin:6px 0;font-size:16px}.friends{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}.friend{border:2px solid var(--line);background:#fffbed;border-radius:20px;padding:9px 5px;font-weight:900;position:relative}.friend[aria-pressed=true]{border-color:var(--green);background:#d9e9bc;box-shadow:0 4px 0 #386d47}.friend svg{width:90px;height:58px;display:block;margin:auto}.friend span{font-size:12px}.friend .stamp{position:absolute;right:8px;top:4px;font-size:20px}.layout{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:22px}.picnic{background:#dbeabb;border:2px solid #c5d8a6;border-radius:32px;overflow:hidden;text-align:center;position:relative;padding:18px 22px 22px}.dino-title{display:flex;justify-content:space-between;gap:8px;align-items:center;text-align:left}.dino-title h2{font-size:23px;letter-spacing:-1px;margin:0}.diet{display:block;font-size:13px;margin-top:3px}.score{background:#fffbed;border-radius:18px;padding:8px 12px;font-size:13px;font-weight:800;white-space:nowrap}.scene{height:181px;position:relative;display:grid;place-items:center}.scene:before,.scene:after{content:'✿';position:absolute;bottom:8px;font-size:52px;color:#fff6bd;left:4px;transform:rotate(-20deg)}.scene:after{left:auto;right:2px;font-size:70px;color:#f3ab80}.scene svg{width:280px;height:178px;overflow:visible}.scene.happy svg{animation:hop .55s ease 3}.scene.ouch svg{animation:wobble .55s ease 2}.bubble{background:var(--paper);border-radius:18px;padding:12px 16px;min-height:70px;display:grid;align-items:center;font-size:17px;font-weight:800;line-height:1.4;position:relative;margin-bottom:16px}.bubble:before{content:'';position:absolute;top:-10px;left:48%;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:12px solid var(--paper)}.plate{border:10px solid #fffdf5;box-shadow:0 5px 0 #b8c69c,inset 0 0 0 2px #e5dccc;border-radius:38px;background:#f5eedc;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:12px;margin-bottom:14px}.slot{min-height:72px;min-width:0;border:2px dashed #cec8ae;border-radius:19px;background:transparent;font-size:27px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center}.slot.filled{background:white;border:2px solid #dbd1b4}.slot small{font-size:10px;line-height:1.1;margin-top:3px}.slot .remove{position:absolute;right:3px;top:0;font-size:13px}.plate-note{font-size:12px;margin:0 0 12px}.actions{display:flex;gap:8px;justify-content:center}.serve{border:0;border-radius:18px;background:var(--green);color:#fffbed;font-size:20px;font-weight:900;padding:14px 23px;box-shadow:0 4px 0 #244837}.menu{background:var(--paper);border:2px solid #e0dec5;border-radius:32px;padding:22px}.menu h2{margin:0;font-size:24px;letter-spacing:-1px}.menu>p{margin:5px 0 16px;font-size:14px}.needs{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 19px}.need{border-radius:20px;background:#eeeadd;border:1px solid #d9d5c7;padding:7px 10px;font-size:12px;font-weight:800}.need.done{background:#deedcc;border-color:#9aba7f}.foods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.food{min-width:0;background:#fff;border:2px solid #e7dfcc;border-radius:19px;min-height:103px;padding:9px 4px;box-shadow:0 3px 0 #e7dfcc;transition:transform .15s}.food:hover{transform:translateY(-3px);border-color:#9aba7f}.food .icon{display:block;font-size:36px;line-height:1.25}.food strong{display:block;font-size:13px}.food small{display:block;font-size:10px;color:#64715c;margin-top:2px}.food.selected{background:#f0f6e6;border-color:#86a965}.footer-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;font-size:13px}.progress{font-weight:800}details{max-width:900px;margin:25px auto 0;font-size:13px;line-height:1.6;color:#566649}summary{cursor:pointer;text-align:center}details p{background:var(--paper);padding:15px;border-radius:16px} @keyframes hop{50%{transform:translateY(-14px) rotate(-3deg)}}@keyframes wobble{25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}@media(max-width:740px){header{padding:12px 16px}.brand{font-size:19px}main{padding:0 12px 24px}.title{margin:8px 0 17px}.title p{font-size:14px}.layout{grid-template-columns:minmax(0,1fr)}.friends{gap:5px}.friend span{font-size:10px}.friend svg{width:68px}.picnic,.menu{padding:16px}.scene{height:143px}.scene svg{height:145px}.bubble{min-height:62px}.foods{grid-template-columns:repeat(3,minmax(0,1fr))}.small{padding:9px 11px}.dino-title h2{font-size:20px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 
 .welcome{min-height:100svh;display:grid;place-content:center;text-align:center;padding:28px;gap:16px}.welcome .mascot{font-size:100px}.welcome h1{margin:0}.welcome p{max-width:360px;margin:0 auto;line-height:1.5}.welcome button{font-size:28px;padding:22px 32px}.food.suggested{border-color:#386d47;box-shadow:0 0 0 3px #bbd194,0 4px 0 #386d47}.serve.ready{box-shadow:0 0 0 5px #f6d671,0 4px 0 #244837}.listen-icon{font-size:25px;vertical-align:middle}.audio-notice{background:#fff1cc;border-radius:12px;padding:12px;text-align:center;font-size:14px}
+.menu-switch{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}.menu-switch button{flex:1;min-height:52px;border:2px solid var(--line);border-radius:16px;background:white;font-weight:800;padding:10px}.menu-switch button[aria-pressed=true]{background:#d9e9bc;border-color:var(--green)}
 </style>
 <script src="../shared/celebrations.js" defer></script>
 </head>
@@ -30,9 +31,9 @@
 <p class="plate-note">Tap food to add it. Tap your plate to take it off.</p>
 <div class="actions"><button class="serve" id="serve">Let’s eat! 🥄</button><button class="small" id="clear">↺ Start over</button><button class="serve" id="next" hidden>Next friend →</button></div>
 </section>
-<section class="menu" aria-label="Food choices"><h2>What’s for lunch?</h2><p>Choose a food from each picture group.</p><div class="needs" id="needs" aria-label="Foods your meal needs"></div><div class="foods" id="foods"></div><div class="footer-row"><span>💧 Water comes with every lunch.</span><span class="progress" id="count">0 / 4 bites</span></div></section>
+<section class="menu" aria-label="Food choices"><h2>What’s for lunch?</h2><div class="menu-switch" id="menu-switch" role="group" aria-label="Choose a lunch menu"><button data-menu="chinese" aria-pressed="true">🥟 Chinese lunch</button><button data-menu="american" aria-pressed="false">🥪 American lunch</button></div><p>Choose a food from each picture group.</p><div class="needs" id="needs" aria-label="Foods your meal needs"></div><div class="foods" id="foods"></div><div class="footer-row"><span>💧 Water comes with every lunch.</span><span class="progress" id="count">0 / 4 bites</span></div></section>
 </div>
-<details><summary>For grown-ups · our pretend picnic</summary><p>These are make-believe dinosaurs eating people food. Real dinosaur diets were different; this game is about variety, not a guide to paleontology or exact nutrition. Build a small pretend plate with a fruit or vegetable, a grain, and a protein. Plant eaters have plant-based choices; meat eaters have meat and fish choices. One optional treat fits too. Two or more treats give our character a pretend tummy wobble, with a kind invitation to change the plate. No food is called “bad,” and there is no score for weight, calories, or eating more. Children’s needs and tolerances vary. There is no need to finish a real plate when you feel full.</p></details>
+<details><summary>For grown-ups · our pretend picnic</summary><p>These are make-believe dinosaurs eating people food. Real dinosaur diets were different; this game is about variety, not a guide to paleontology or exact nutrition. Build a small pretend plate with a fruit or vegetable, a grain, and a protein. Plant eaters have plant-based choices; meat eaters have meat and fish choices. The two menus offer examples of Chinese and American lunches, with many foods enjoyed across cultures. Tofu and pork dumplings count as both grain (wrapper) and protein (filling); add a fruit or vegetable for variety. Plant-eater noodles, wrappers, and treats are made without animal ingredients in this pretend picnic. One optional treat fits too. Two or more treats give our character a pretend tummy wobble, with a kind invitation to change the plate. No food is called “bad,” and there is no score for weight, calories, or eating more. Children’s needs and tolerances vary. There is no need to finish a real plate when you feel full.</p></details>
 </main>
 </div>
 <script>
@@ -44,12 +45,41 @@ const dinos=[
  {name:'Pachycephalosaurus',nick:'Pip',kind:'plants',color:'#b49ac7',type:'dome'}
 ];
 const foods=[
- {id:'broccoli',name:'Broccoli',icon:'🥦',group:'color'}, {id:'carrot',name:'Carrot',icon:'🥕',group:'color'}, {id:'apple',name:'Apple',icon:'🍎',group:'color'},
- {id:'rice',name:'Brown rice',icon:'🍚',group:'grain'}, {id:'bread',name:'Wholegrain toast',icon:'🍞',group:'grain'}, {id:'corn',name:'Corn',icon:'🌽',group:'grain'},
- {id:'beans',name:'Beans',icon:'🫘',group:'protein',kind:'plants'}, {id:'tofu',name:'Tofu',icon:'🧊',group:'protein',kind:'plants'}, {id:'lentils',name:'Lentils',icon:'🥣',group:'protein',kind:'plants'},
- {id:'chicken',name:'Chicken',icon:'🍗',group:'protein',kind:'meat'}, {id:'fish',name:'Fish',icon:'🐟',group:'protein',kind:'meat'}, {id:'beef',name:'Beef',icon:'🥩',group:'protein',kind:'meat'},
- {id:'ice',name:'Oat ice cream',icon:'🍦',group:'treat'}, {id:'cookie',name:'Oat cookie',icon:'🍪',group:'treat'}, {id:'candy',name:'Candy',icon:'🍬',group:'treat'}
+ {id:'bok-choy',name:'Bok choy',icon:'🥬',group:'color',menu:'chinese'},
+ {id:'orange',name:'Mandarin orange',icon:'🍊',group:'color',menu:'chinese'},
+ {id:'broccoli',name:'Broccoli',icon:'🥦',group:'color'},
+ {id:'carrot',name:'Carrot sticks',icon:'🥕',group:'color',menu:'american'},
+ {id:'apple',name:'Apple slices',icon:'🍎',group:'color',menu:'american'},
+ {id:'rice',name:'Rice',icon:'🍚',group:'grain',menu:'chinese'},
+ {id:'noodles',name:'Wheat noodles',icon:'🍜',group:'grain',menu:'chinese'},
+ {id:'tofu-dumplings',name:'Tofu dumplings',icon:'🥟',group:'grain',extra:'protein',kind:'plants',menu:'chinese'},
+ {id:'pork-dumplings',name:'Pork dumplings',icon:'🥟',group:'grain',extra:'protein',kind:'meat',menu:'chinese'},
+ {id:'bread',name:'Wholegrain toast',icon:'🍞',group:'grain',menu:'american'},
+ {id:'pasta',name:'Pasta',icon:'🍝',group:'grain',menu:'american'},
+ {id:'corn',name:'Corn on the cob',icon:'🌽',group:'grain',menu:'american'},
+ {id:'tofu',name:'Tofu',icon:'⬜',group:'protein',kind:'plants',menu:'chinese'},
+ {id:'edamame',name:'Edamame beans',icon:'🫛',group:'protein',kind:'plants',menu:'chinese'},
+ {id:'beans',name:'Beans',icon:'🫘',group:'protein',kind:'plants'},
+ {id:'lentils',name:'Lentil soup',icon:'🥣',group:'protein',kind:'plants',menu:'american'},
+ {id:'hummus',name:'Hummus',icon:'🧆',group:'protein',kind:'plants',menu:'american'},
+ {id:'chicken',name:'Chicken',icon:'🍗',group:'protein',kind:'meat'},
+ {id:'fish',name:'Steamed fish',icon:'🐟',group:'protein',kind:'meat',menu:'chinese'},
+ {id:'beef',name:'Beef strips',icon:'🥩',group:'protein',kind:'meat',menu:'chinese'},
+ {id:'salmon',name:'Baked salmon',icon:'🐟',group:'protein',kind:'meat',menu:'american'},
+ {id:'turkey',name:'Turkey slices',icon:'🍖',group:'protein',kind:'meat',menu:'american'},
+ {id:'ice',name:'Oat ice cream',icon:'🍦',group:'treat'},
+ {id:'cookie',name:'Oat cookie',icon:'🍪',group:'treat'},
+ {id:'candy',name:'Candy',icon:'🍬',group:'treat'}
 ];
+let lunchMenu='chinese';
+const hasGroup=(food,group)=>Boolean(group)&&(food.group===group||food.extra===group);
+function menuFoods(){return foods.filter(f=>(!f.menu||f.menu===lunchMenu)&&(!f.kind||f.kind===dinos[current].kind));}
+function foodGroups(food){return [food.group,food.extra].filter(g=>groups[g]).map(g=>groups[g].label).join(' + ')||'Optional treat';}
+function groupHint(group){
+ const examples=menuFoods().filter(f=>hasGroup(f,group)).slice(0,2).map(f=>f.name.toLowerCase()).join(' or ');
+ const label={color:'a fruit or veggie',grain:'a grain',protein:dinos[current].kind==='plants'?'a plant protein':'a protein'}[group];
+ return `Tap ${label}, like ${examples}.`;
+}
 const groups={color:{label:'Fruit / veg',icon:'🥦'},grain:{label:'Grains',icon:'🌾'},protein:{label:'Protein',icon:'💪'}};
 const $=id=>document.getElementById(id);
 let current=0,plate=[],served=false,voice=true,earned=new Set(),message='',utterance=null;
@@ -76,35 +106,42 @@ function say(text){
 }
 function nextHint(){
  if(plate.filter(f=>f.group==='treat').length>=2)return 'Tap a treat on your plate to take it off. We can keep one treat.';
- const missing=Object.keys(groups).find(g=>!plate.some(f=>f.group===g));
+ const missing=Object.keys(groups).find(g=>!plate.some(f=>hasGroup(f,g)));
  if(!missing)return 'Lunch is ready! Tap the green spoon button to eat. Water comes with our lunch, too!';
- const hint={color:'Tap a fruit or veggie, like the apple or carrot.',grain:'Tap a grain, like the rice or toast.',protein:dinos[current].kind==='plants'?'Tap a plant protein, like the beans or tofu.':'Tap a protein, like the chicken or fish.'}[missing];
+ const hint=groupHint(missing);
  return plate.length===4?'Tap a food on your plate to make room. '+hint:hint;
 }
 function tell(text,mood='normal',speak=true){message=text;$('message').textContent=text;$('scene').innerHTML=art(dinos[current],mood);$('scene').className='scene '+mood;if(speak)say(text);}
 function paintVoice(){$('voice').textContent=voice?'🔊 Voice on':'🔇 Voice off';$('voice').setAttribute('aria-pressed',String(voice));}
 function render(){
- const missing=Object.keys(groups).find(g=>!plate.some(f=>f.group===g));
+ const missing=Object.keys(groups).find(g=>!plate.some(f=>hasGroup(f,g)));
  $('friends').innerHTML=dinos.map((d,i)=>`<button class="friend" data-dino="${i}" aria-pressed="${i===current}" aria-label="${d.name}${earned.has(i)?', picnic complete':''}">${art(d)}<span>${d.name}</span>${earned.has(i)?'<span class="stamp" aria-hidden="true">🌼</span>':''}</button>`).join('');
  $('name').textContent=dinos[current].nick+' the '+dinos[current].name;
  $('diet').textContent=dinos[current].kind==='plants'?'🌿 Plant eater · a plant-powered picnic':'🍗 Meat eater · a make-believe mixed lunch';
  $('score').textContent='🌼 '+earned.size+' / 4';
  $('plate').innerHTML=Array.from({length:4},(_,i)=>plate[i]?`<button class="slot filled" data-slot="${i}" aria-label="Remove ${plate[i].name}" ${served?'disabled':''}><span aria-hidden="true">${plate[i].icon}</span><small>${plate[i].name}</small><span class="remove" aria-hidden="true">×</span></button>`:`<div class="slot" aria-label="Empty plate space"><span aria-hidden="true">+</span></div>`).join('');
- $('needs').innerHTML=Object.entries(groups).map(([key,g])=>`<span class="need ${plate.some(f=>f.group===key)?'done':''}">${plate.some(f=>f.group===key)?'✓ ':''}${g.icon} ${g.label}</span>`).join('');
- $('foods').innerHTML=foods.filter(f=>!f.kind||f.kind===dinos[current].kind).map(f=>`<button class="food ${plate.some(p=>p.id===f.id)?'selected':''} ${!served&&plate.length<4&&f.group===missing?'suggested':''}" data-food="${f.id}" aria-label="Add ${f.name}, ${groups[f.group]?.label||'optional treat'}" ${served?'disabled':''}><span class="icon" aria-hidden="true">${f.icon}</span><strong>${f.name}</strong><small>${groups[f.group]?.label||'Optional treat'}</small></button>`).join('');
+ $('needs').innerHTML=Object.entries(groups).map(([key,g])=>`<span class="need ${plate.some(f=>hasGroup(f,key))?'done':''}">${plate.some(f=>hasGroup(f,key))?'✓ ':''}${g.icon} ${g.label}</span>`).join('');
+ $('foods').innerHTML=menuFoods().map(f=>`<button class="food ${plate.some(p=>p.id===f.id)?'selected':''} ${!served&&plate.length<4&&hasGroup(f,missing)?'suggested':''}" data-food="${f.id}" aria-label="Add ${f.name}, ${foodGroups(f)}" ${served?'disabled':''}><span class="icon" aria-hidden="true">${f.icon}</span><strong>${f.name}</strong><small>${foodGroups(f)}</small></button>`).join('');
  $('count').textContent=plate.length+' / 4 bites';$('serve').hidden=served;$('serve').disabled=!plate.length;$('clear').hidden=served;$('next').hidden=!served;
  $('serve').classList.toggle('ready',!served&&!missing&&plate.filter(f=>f.group==='treat').length<2);
  $('next').textContent=earned.size===4?'Picnic again ↻':'Next friend →';
 }
-function choose(index,speak=true){current=index;plate=[];served=false;window.GameCelebration?.clear();render();tell(`Hi! I’m ${dinos[current].nick}, the ${dinos[current].name}. ${dinos[current].kind==='plants'?'I eat plants!':'I eat meat! This is our pretend picnic.'} Let’s make lunch. Tap the apple or another fruit or veggie. The green edges show you where to look.`, 'normal',speak);}
+function choose(index,speak=true){current=index;plate=[];served=false;window.GameCelebration?.clear();render();tell(`Hi! I’m ${dinos[current].nick}, the ${dinos[current].name}. ${dinos[current].kind==='plants'?'I eat plants!':'I eat meat! This is our pretend picnic.'} Let’s make ${lunchMenu==='chinese'?'a Chinese':'an American'} lunch. ${groupHint('color')} The green edges show you where to look.`, 'normal',speak);}
+$('menu-switch').addEventListener('click',e=>{
+ const button=e.target.closest('[data-menu]');if(!button||button.dataset.menu===lunchMenu)return;
+ lunchMenu=button.dataset.menu;
+ for(const option of $('menu-switch').querySelectorAll('button'))option.setAttribute('aria-pressed',String(option.dataset.menu===lunchMenu));
+ choose(current,false);
+ tell(`${lunchMenu==='chinese'?'Chinese':'American'} lunch! Let’s start a fresh plate. ${groupHint('color')}`);
+});
 $('friends').addEventListener('click',e=>{const b=e.target.closest('[data-dino]');if(b){choose(Number(b.dataset.dino));$('friends').querySelector(`[data-dino="${current}"]`).focus();}});
-$('foods').addEventListener('click',e=>{const b=e.target.closest('[data-food]');if(!b||served)return;if(plate.length===4){tell('The plate is full. '+nextHint());return;}const f=foods.find(f=>f.id===b.dataset.food);plate.push(f);render();tell(`${f.name}! ${nextHint()}`);$('foods').querySelector(`[data-food="${f.id}"]`).focus();});
+$('foods').addEventListener('click',e=>{const b=e.target.closest('[data-food]');if(!b||served)return;if(plate.length===4){tell('The plate is full. '+nextHint());return;}const f=foods.find(f=>f.id===b.dataset.food);plate.push(f);render();tell(`${f.name}! ${f.extra?'The wrapper is a grain, and the filling gives us protein. ':''}${nextHint()}`);$('foods').querySelector(`[data-food="${f.id}"]`).focus();});
 $('plate').addEventListener('click',e=>{const b=e.target.closest('[data-slot]');if(!b||served)return;const removed=plate.splice(Number(b.dataset.slot),1)[0];render();tell(`We took off ${removed.name}. ${nextHint()}`);$('foods').querySelector(`[data-food="${removed.id}"]`).focus();});
 $('serve').addEventListener('click',()=>{
  if(served||!plate.length)return;
  if(plate.filter(f=>f.group==='treat').length>=2){tell('Ooh, my pretend tummy feels wobbly! Let’s keep one treat and swap the others for lunch foods.','ouch');return;}
- const missing=Object.keys(groups).filter(g=>!plate.some(f=>f.group===g));
- if(missing.length){const hints={color:'a fruit or veggie',grain:'a grain, like rice or toast',protein:dinos[current].kind==='plants'?'a plant protein, like beans or tofu':'a protein, like chicken or fish'};tell(`Let’s add ${hints[missing[0]]}. ${plate.length===4?'Tap a food on your plate to make room.':'Our lunch needs variety!'}`);return;}
+ const missing=Object.keys(groups).filter(g=>!plate.some(f=>hasGroup(f,g)));
+ if(missing.length){tell(nextHint());return;}
  served=true;earned.add(current);render();tell(earned.size===4?'Hooray! You made a varied lunch for every friend. Tap the green arrow to play again!':'Yum! A colorful, varied lunch. My tummy is happy. Thank you! Tap the green arrow for our next friend.','happy');window.GameCelebration?.celebrate({milestone:earned.size===4});$('next').focus();
 });
 $('clear').addEventListener('click',()=>choose(current));
