@@ -14,6 +14,7 @@ self-contained HTML file, and `index.html` is the hub that links them together.
 | Brick Builders | `games/brick-builders.html` | Math, building | 4–6 |
 | Note Blocks | `games/note-blocks.html` | Music, listening, rhythm | 4–8 |
 | Solar System Simulator | `games/solar-system.html` | Space, planets, orbits | 4–8 |
+| Shark Maze | `games/shark-maze.html` | Mazes, tapping, cause and effect | 1–4 |
 
 ## Play timer
 

@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#031126"><title>Shark Maze · Quentin Funcade</title>
+<style>
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;overflow:hidden;background:radial-gradient(ellipse at 50% -10%,#1b5c8a 0%,#0a2c52 35%,#041630 70%,#020a19 100%);color:#fff;font-family:"Trebuchet MS",sans-serif;user-select:none;-webkit-user-select:none;touch-action:none}
+button{font:inherit;cursor:pointer}button:focus-visible{outline:4px solid #ffe36b;outline-offset:3px}
+.rays{position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(100deg,#9fe8ff0a 0 40px,transparent 40px 120px);mask-image:linear-gradient(#000,transparent 60%);-webkit-mask-image:linear-gradient(#000,transparent 60%)}
+.bubble{position:fixed;bottom:-30px;border-radius:50%;border:2px solid #bff3ff66;background:radial-gradient(circle at 30% 30%,#ffffff55,transparent 60%);pointer-events:none;animation:rise linear infinite}
+@keyframes rise{to{transform:translate(var(--drift),-110vh)}}
+.bar{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;z-index:5}
+.stars{font-size:clamp(22px,4vw,34px);letter-spacing:2px;min-height:1.2em;filter:drop-shadow(0 0 6px #ffd84a)}
+.tools{display:flex;gap:10px}
+.tools button{width:58px;height:58px;border-radius:50%;border:3px solid #7fdcff88;background:#0b3a66cc;color:#fff;font-size:28px;display:grid;place-items:center}
+.tools button:active{transform:scale(.92)}
+.level{display:flex;align-items:center;gap:8px;font-size:clamp(24px,4vw,32px);padding:6px 14px;border-radius:999px;background:#0b3a66cc;border:3px solid #7fdcff88}
+.level input{width:clamp(110px,24vw,240px);height:36px;accent-color:#ffd84a;cursor:pointer}
+.level input:focus-visible{outline:4px solid #ffe36b;outline-offset:3px}
+@media(max-width:520px){.bar{padding:8px}.tools{gap:6px}.tools button{width:48px;height:48px;font-size:22px}.level{padding:4px 10px;gap:4px;font-size:22px}.level input{width:26vw}}
+.stage{position:fixed;inset:78px 12px 12px;display:grid;place-items:center}
+.board{position:relative;border-radius:22px;background:#04203f99;box-shadow:0 0 0 3px #3fc9e833,0 0 60px #1ab0d833 inset;transition:opacity .45s,transform .45s}
+.board.out{opacity:0;transform:scale(.9)}
+.board svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.glow{stroke:#35e0ff;stroke-opacity:.25;stroke-linecap:round;fill:none}
+.wall{stroke:#ff8fb1;stroke-linecap:round;fill:none}
+.piece{position:absolute;left:0;top:0;width:var(--c);height:var(--c);display:grid;place-items:center;transform:translate(calc(var(--x)*var(--c)),calc(var(--y)*var(--c)));pointer-events:none;line-height:1}
+.piece span{display:block}
+.shark{z-index:3;transition:transform .2s ease-out;font-size:calc(var(--c)*.68)}
+.shark span{transition:transform .2s;filter:sepia(1) saturate(5) hue-rotate(5deg) brightness(1.15) drop-shadow(0 0 8px #ffe66d);animation:bob 1.6s ease-in-out infinite}
+.shark.right span{transform:scaleX(-1)}
+.shark.bonk span{animation:bonk .3s}
+@keyframes bob{50%{translate:0 -6%}}
+@keyframes bonk{25%{translate:-9% 0}75%{translate:9% 0}}
+.goal{font-size:calc(var(--c)*.72);z-index:2}
+.goal span{animation:bob 2s ease-in-out infinite}
+.goal i{position:absolute;right:6%;top:4%;font-style:normal;font-size:.4em;animation:beat 1s ease-in-out infinite}
+@keyframes beat{50%{scale:1.3}}
+.treat{font-size:calc(var(--c)*.4);animation:twinkle 1.4s ease-in-out infinite}
+.treat.got{animation:gobble .4s forwards}
+@keyframes twinkle{50%{scale:1.15;filter:drop-shadow(0 0 8px #fff6)}}
+@keyframes gobble{to{scale:2;opacity:0}}
+.decor{font-size:calc(var(--c)*.42);opacity:.85}
+.decor.wiggle span{animation:bonk .4s 2}
+.snack{font-size:calc(var(--c)*.42)}
+.snack.got{animation:gobble .4s forwards}
+.poison{font-size:calc(var(--c)*.46)}
+.poison.puff span{animation:puff .6s}
+@keyframes puff{40%{scale:1.6}}
+.shark.stun span{animation:dizzy .5s linear 3;filter:grayscale(.5) brightness(1.1)}
+.shark.stun::after{content:'💫';position:absolute;top:-10%;font-size:.5em;animation:bob .5s ease-in-out infinite}
+@keyframes dizzy{25%{rotate:-18deg}75%{rotate:18deg}}
+.hint{position:absolute;width:calc(var(--c)*.3);height:calc(var(--c)*.3);left:calc(var(--c)*.35);top:calc(var(--c)*.35);border-radius:50%;background:#fff5;box-shadow:0 0 14px #9ff;animation:hint 1s ease-in-out infinite}
+@keyframes hint{50%{opacity:.2;scale:.6}}
+.party{position:fixed;inset:0;pointer-events:none;z-index:10;overflow:hidden}
+.party span{position:absolute;bottom:-60px;font-size:44px;animation:party 2.2s ease-out forwards}
+@keyframes party{to{transform:translate(var(--drift),-115vh) rotate(var(--spin))}}
+.hug{position:fixed;inset:0;display:grid;place-items:center;z-index:9;pointer-events:none;font-size:min(30vw,30vh);animation:pop .5s ease-out}
+.hug span{display:inline-block;animation:bob 1s ease-in-out infinite}
+@keyframes pop{from{scale:.3;opacity:0}}
+@media(prefers-reduced-motion:reduce){.bubble,.party{display:none}*{animation-duration:.01s!important;animation-iteration-count:1!important}}
+</style>
+</head>
+<body>
+<div class="rays" aria-hidden="true"></div>
+<div class="bar"><div class="stars" id="stars" aria-label="Mazes finished"></div><label class="level"><span aria-hidden="true">🐣</span><input id="difficulty" type="range" min="0" max="5" step="1" value="0" aria-label="Maze difficulty"><span aria-hidden="true">🦈</span></label><div class="tools"><button id="sound" aria-label="Sound" aria-pressed="true">🔊</button><button id="new" aria-label="New maze">🔄</button></div></div>
+<div class="stage" id="stage"><div class="board" id="board" role="application" aria-label="Maze. Use arrow keys to swim."></div></div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const DIRS=[{dx:0,dy:-1,b:1,o:4},{dx:1,dy:0,b:2,o:8},{dx:0,dy:1,b:4,o:1},{dx:-1,dy:0,b:8,o:2}];
+const SIZES=[[3,3],[4,3],[4,4],[5,4],[5,5],[6,5],[7,5],[7,6],[8,6],[9,7],[10,7],[11,8],[12,9],[13,10],[14,10]];
+const START_LEVEL=[0,2,4,6,8,10]; // slider stop -> first maze size; each solve then grows one step
+const FAMILY=[{name:'Mommy',filter:'hue-rotate(300deg) saturate(2)'},{name:'Daddy',filter:'hue-rotate(20deg) saturate(1.6)'},{name:'Grandma',filter:'hue-rotate(250deg) saturate(1.5) brightness(1.2)'},{name:'Grandpa',filter:'grayscale(.6) brightness(1.2)'}];
+const TREATS=['⭐','🐚','💎','🫧'],DECOR=['🪸','🐙','🦑','🐢','🌿'];
+const SNACKS=['🦀','🐟','🐠','🦐'],POISON=['🐡','🪼']; // snacks get eaten; poison stuns the shark and stays put
+const PARTY=['⭐','🫧','🐟','🐠','💖','🎉','🐚'];
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cols,rows,walls,shark,goal,items,level=0,wins=0,busy=false,stunnedUntil=0,cell=60,idleTimer,holdTimer,held=null,lastMove=0,family;
+let soundOn=true;try{soundOn=localStorage.getItem('game-effects')!=='off';}catch{}
+let difficulty=0;try{difficulty=Math.max(0,Math.min(5,Number(localStorage.getItem('shark-maze-difficulty'))||0));}catch{}
+level=START_LEVEL[difficulty];
+
+// ---------- sound ----------
+let ctx;
+function audio(){if(!soundOn)return null;if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();}if(ctx.state==='suspended')ctx.resume();return ctx;}
+function tone(freq,start=0,dur=.15,type='sine',vol=.18,slide){const a=audio();if(!a)return;const t=a.currentTime+start,o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);if(slide)o.frequency.exponentialRampToValueAtTime(slide,t+dur);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+dur);o.connect(g).connect(a.destination);o.start(t);o.stop(t+dur+.05);}
+const PENTA=[523,587,659,784,880,1047];
+let stepNote=0;
+const sfx={
+ step(){tone(PENTA[stepNote++%PENTA.length],0,.12,'sine',.12,undefined);tone(300,0,.08,'sine',.05,700);},
+ bonk(){tone(160,0,.18,'triangle',.14,110);},
+ treat(){[1047,1319,1568].forEach((f,i)=>tone(f,i*.07,.18,'triangle',.12));},
+ eat(){tone(700,0,.1,'square',.08,300);tone(900,.1,.12,'triangle',.1);},
+ zap(){tone(900,0,.5,'sawtooth',.07,150);tone(1200,.1,.4,'square',.04,200);},
+ decor(){tone(400,0,.25,'sine',.12,900);},
+ win(){const tune=[[392,0],[440,.18],[523,.36],[523,.5],[523,.64],[523,.78],[523,.92],[659,1.1],[784,1.3],[1047,1.55]];tune.forEach(([f,t])=>tone(f,t,.2,'square',.07));tune.forEach(([f,t])=>tone(f/2,t,.2,'triangle',.08));}
+};
+function say(text){if(!soundOn||!('speechSynthesis' in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=.9;u.pitch=1.4;speechSynthesis.speak(u);}
+
+// ---------- maze ----------
+const key=(x,y)=>y*cols+x;
+const inside=(x,y)=>x>=0&&y>=0&&x<cols&&y<rows;
+function generate(){
+ walls=Array.from({length:rows},()=>Array(cols).fill(15));
+ const seen=new Set(),stack=[[Math.floor(Math.random()*cols),Math.floor(Math.random()*rows)]];
+ seen.add(key(...stack[0]));
+ while(stack.length){
+  const [x,y]=stack[stack.length-1];
+  const next=DIRS.filter(d=>inside(x+d.dx,y+d.dy)&&!seen.has(key(x+d.dx,y+d.dy)));
+  if(!next.length){stack.pop();continue;}
+  const d=next[Math.floor(Math.random()*next.length)],nx=x+d.dx,ny=y+d.dy;
+  walls[y][x]&=~d.b;walls[ny][nx]&=~d.o;seen.add(key(nx,ny));stack.push([nx,ny]);
+ }
+}
+function distances(from){
+ const dist=new Map([[key(from.x,from.y),0]]),queue=[from];
+ while(queue.length){const p=queue.shift();for(const d of DIRS){if(walls[p.y][p.x]&d.b)continue;const n={x:p.x+d.dx,y:p.y+d.dy},k=key(n.x,n.y);if(!dist.has(k)){dist.set(k,dist.get(key(p.x,p.y))+1);queue.push(n);}}}
+ return dist;
+}
+function nextToward(target){
+ const dist=distances(target);
+ for(const d of DIRS){if(walls[shark.y][shark.x]&d.b)continue;const n={x:shark.x+d.dx,y:shark.y+d.dy};if(dist.get(key(n.x,n.y))<dist.get(key(shark.x,shark.y)))return d;}
+ return null;
+}
+function pathTo(target){const out=[];const save={...shark};let d;while((d=nextToward(target))){shark={x:shark.x+d.dx,y:shark.y+d.dy};out.push({...shark});}shark=save;return out;}
+
+// ---------- drawing ----------
+function piece(cls,x,y,html){const el=document.createElement('div');el.className='piece '+cls;el.style.setProperty('--x',x);el.style.setProperty('--y',y);el.innerHTML=html;$('board').append(el);return el;}
+function layout(){
+ const s=$('stage').getBoundingClientRect();
+ cell=Math.floor(Math.min(s.width/cols,s.height/rows,260));
+ $('board').style.cssText=`width:${cell*cols}px;height:${cell*rows}px;--c:${cell}px`;
+}
+function drawWalls(){
+ let d='';
+ for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){const w=walls[y][x];
+  if(w&1)d+=`M${x} ${y}H${x+1}`;if(w&8)d+=`M${x} ${y}V${y+1}`;
+  if(x===cols-1&&w&2)d+=`M${x+1} ${y}V${y+1}`;if(y===rows-1&&w&4)d+=`M${x} ${y+1}H${x+1}`;}
+ $('board').innerHTML=`<svg viewBox="-.1 -.1 ${cols+.2} ${rows+.2}" preserveAspectRatio="none" aria-hidden="true"><path class="glow" stroke-width=".26" d="${d}"/><path class="wall" stroke-width=".1" d="${d}"/></svg>`;
+}
+function newMaze(){
+ clearHint();
+ [cols,rows]=SIZES[Math.min(level,SIZES.length-1)];
+ if(innerHeight>innerWidth)[cols,rows]=[rows,cols];
+ generate();
+ const corners=[{x:0,y:0},{x:cols-1,y:0},{x:0,y:rows-1},{x:cols-1,y:rows-1}];
+ shark=corners[Math.floor(Math.random()*4)];
+ const dist=distances(shark);let far=0;
+ for(const [k,v]of dist)if(v>far){far=v;goal={x:k%cols,y:Math.floor(k/cols)};}
+ family=FAMILY[Math.floor(Math.random()*FAMILY.length)];
+ layout();drawWalls();items=new Map();
+ const path=pathTo(goal).slice(0,-1),onPath=new Set(path.map(p=>key(p.x,p.y)));
+ const treatCount=Math.min(path.length,2+Math.floor(level/2));
+ Array.from({length:treatCount},(_,i)=>path[Math.floor((i+.5)*path.length/treatCount)])
+  .forEach(p=>items.set(key(p.x,p.y),{kind:'treat',el:piece('treat',p.x,p.y,`<span>${TREATS[Math.floor(Math.random()*TREATS.length)]}</span>`)}));
+ const free=[];for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){const k=key(x,y);if(!onPath.has(k)&&k!==key(shark.x,shark.y)&&k!==key(goal.x,goal.y))free.push({x,y,k});}
+ const pick=a=>a[Math.floor(Math.random()*a.length)];
+ // off-path only, so poison never blocks the way to the family
+ free.sort(()=>Math.random()-.5).slice(0,Math.ceil(free.length/2)).forEach((p,i)=>{
+  const kind=i%3===0?'snack':i%3===1?'poison':'decor',emoji=pick(kind==='snack'?SNACKS:kind==='poison'?POISON:DECOR);
+  items.set(p.k,{kind,el:piece(kind,p.x,p.y,`<span>${emoji}</span>`)});
+ });
+ piece('goal',goal.x,goal.y,`<span style="filter:${family.filter}">🦈</span><i>💖</i>`);
+ sharkEl=piece('shark',shark.x,shark.y,'<span>🦈</span>');
+ face(goal.x>shark.x?1:-1);
+ $('board').classList.remove('out');busy=false;resetIdle();
+}
+let sharkEl;
+function face(dx){if(dx)sharkEl.classList.toggle('right',dx>0);}
+
+// ---------- moves ----------
+function move(d){
+ if(busy||!d)return;
+ const now=performance.now();if(now<stunnedUntil||now-lastMove<150)return;lastMove=now;
+ resetIdle();
+ face(d.dx);
+ if(walls[shark.y][shark.x]&d.b){sfx.bonk();sharkEl.classList.remove('bonk');void sharkEl.offsetWidth;sharkEl.classList.add('bonk');return;}
+ const ahead=items.get(key(shark.x+d.dx,shark.y+d.dy));
+ if(ahead&&ahead.kind==='poison'){stun(ahead);return;}
+ shark={x:shark.x+d.dx,y:shark.y+d.dy};
+ sharkEl.style.setProperty('--x',shark.x);sharkEl.style.setProperty('--y',shark.y);
+ const item=items.get(key(shark.x,shark.y));
+ if(item&&item.kind==='treat'){items.delete(key(shark.x,shark.y));item.el.classList.add('got');sfx.treat();setTimeout(()=>item.el.remove(),400);}
+ else if(item&&item.kind==='snack'){items.delete(key(shark.x,shark.y));item.el.classList.add('got');sfx.eat();setTimeout(()=>item.el.remove(),400);}
+ else if(item&&item.kind==='decor'){sfx.decor();item.el.classList.remove('wiggle');void item.el.offsetWidth;item.el.classList.add('wiggle');}
+ else sfx.step();
+ if(shark.x===goal.x&&shark.y===goal.y)win();
+}
+function stun(item){
+ stunnedUntil=performance.now()+1500;clearTimeout(holdTimer);held=null;sfx.zap();say('Ouch! Yucky!');
+ item.el.classList.remove('puff');void item.el.offsetWidth;item.el.classList.add('puff');
+ sharkEl.classList.add('stun');setTimeout(()=>sharkEl.classList.remove('stun'),1500);
+}
+function stepToward(target){
+ if(target.x===shark.x&&target.y===shark.y)return;
+ const adj=DIRS.find(d=>shark.x+d.dx===target.x&&shark.y+d.dy===target.y);
+ move(adj||nextToward(target));
+}
+function win(){
+ busy=true;clearHint();clearTimeout(holdTimer);held=null;wins++;level++;
+ sfx.win();say(`Yay! ${family.name} shark! Doo doo doo doo doo doo!`);
+ $('stars').textContent='⭐'.repeat(Math.min(wins,10))+(wins>10?' ✨':'');
+ const hug=document.createElement('div');hug.className='hug';hug.innerHTML=`<span>🦈💖<span style="filter:${family.filter}">🦈</span></span>`;document.body.append(hug);
+ if(!reduced){const party=document.createElement('div');party.className='party';for(let i=0;i<30;i++){const s=document.createElement('span');s.textContent=PARTY[i%PARTY.length];s.style.cssText=`left:${Math.random()*100}%;--drift:${Math.random()*200-100}px;--spin:${Math.random()*720-360}deg;animation-delay:${Math.random()*.6}s`;party.append(s);}document.body.append(party);setTimeout(()=>party.remove(),3000);}
+ setTimeout(()=>{hug.remove();$('board').classList.add('out');},2600);
+ setTimeout(newMaze,3100);
+}
+
+// idle hint: glow the next cell toward the goal
+let hintEl;
+function clearHint(){if(hintEl){hintEl.remove();hintEl=null;}}
+function resetIdle(){clearHint();clearTimeout(idleTimer);idleTimer=setTimeout(()=>{if(busy)return;const d=nextToward(goal);if(d)hintEl=piece('hint-cell',shark.x+d.dx,shark.y+d.dy,'<div class="hint"></div>');},5000);}
+
+// ---------- input ----------
+function cellAt(e){const r=$('board').getBoundingClientRect();const x=Math.floor((e.clientX-r.left)/cell),y=Math.floor((e.clientY-r.top)/cell);return{x:Math.max(0,Math.min(cols-1,x)),y:Math.max(0,Math.min(rows-1,y))};}
+function hold(){clearTimeout(holdTimer);if(!held)return;stepToward(held);holdTimer=setTimeout(hold,260);}
+addEventListener('pointerdown',e=>{if(e.target.closest('button,.level'))return;audio();held=cellAt(e);hold();});
+addEventListener('pointermove',e=>{if(!held)return;const c=cellAt(e);if(c.x!==held.x||c.y!==held.y){held=c;stepToward(c);}});
+['pointerup','pointercancel','pointerleave'].forEach(t=>addEventListener(t,()=>{held=null;clearTimeout(holdTimer);}));
+const KEYS={ArrowUp:0,KeyW:0,ArrowRight:1,KeyD:1,ArrowDown:2,KeyS:2,ArrowLeft:3,KeyA:3};
+addEventListener('keydown',e=>{
+ if(e.target.closest&&e.target.closest('button')&&(e.key==='Enter'||e.key===' '))return;
+ if(e.target.id==='difficulty')return;
+ if(e.metaKey||e.ctrlKey||e.altKey)return;
+ e.preventDefault();audio();
+ if(e.code in KEYS)move(DIRS[KEYS[e.code]]);
+ else move(nextToward(goal)); // key mashing still swims toward the family
+});
+$('sound').addEventListener('click',()=>{soundOn=!soundOn;try{localStorage.setItem('game-effects',soundOn?'on':'off');}catch{}$('sound').textContent=soundOn?'🔊':'🔇';$('sound').setAttribute('aria-pressed',String(soundOn));if(!soundOn&&'speechSynthesis' in window)speechSynthesis.cancel();sfx.treat();});
+function freshMaze(){if(busy)return;busy=true;$('board').classList.add('out');setTimeout(newMaze,450);}
+$('new').addEventListener('click',freshMaze);
+$('difficulty').value=difficulty;
+$('difficulty').addEventListener('change',e=>{difficulty=Number(e.target.value);level=START_LEVEL[difficulty];try{localStorage.setItem('shark-maze-difficulty',difficulty);}catch{}e.target.blur();sfx.treat();freshMaze();});
+let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(!busy)layout();},150);});
+
+// ambient bubbles
+if(!reduced)for(let i=0;i<14;i++){const b=document.createElement('div');b.className='bubble';const s=8+Math.random()*26;b.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;--drift:${Math.random()*60-30}px;animation-duration:${8+Math.random()*10}s;animation-delay:${-Math.random()*18}s`;document.body.prepend(b);}
+$('sound').textContent=soundOn?'🔊':'🔇';$('sound').setAttribute('aria-pressed',String(soundOn));
+newMaze();
+</script>
+</body>
+</html>
